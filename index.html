@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎰 Casino Blackjack - Gambling Game</title>
+    <title>🌟 MegaPlateforme - Pokémon, Crypto & Casino 🌟</title>
     <style>
         * {
             margin: 0;
@@ -11,584 +11,143 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #1a472a, #0d2b1a);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid gold;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            flex-wrap: wrap;
         }
-        
-        .game-container {
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 900px;
-            width: 100%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-            border: 2px solid gold;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+
+        .logo {
             color: gold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        
-        .balance-box {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 1px solid gold;
-        }
-        
-        .balance {
-            font-size: 2em;
-            color: #2ecc71;
+            font-size: 1.8rem;
             font-weight: bold;
-            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
-        
-        .bet-controls {
+
+        .nav-links {
             display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin: 20px 0;
+            gap: 20px;
             flex-wrap: wrap;
         }
-        
-        .bet-btn {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            border: none;
+
+        .nav-link {
             color: white;
-            padding: 15px 30px;
-            font-size: 1.2em;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s;
             font-weight: bold;
-            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid gold;
+            border: 2px solid transparent;
         }
-        
-        .bet-btn:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px gold;
+
+        .nav-link:hover {
+            border-color: gold;
+            transform: translateY(-2px);
         }
-        
-        .bet-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .game-area {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin: 30px 0;
-        }
-        
-        .hand {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            border: 2px solid gold;
-        }
-        
-        .hand-title {
-            color: white;
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .cards {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            min-height: 150px;
-        }
-        
-        .card {
-            background: white;
-            width: 100px;
-            height: 140px;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            border: 2px solid gold;
-            position: relative;
-            transition: all 0.3s;
-        }
-        
-        .card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .card.hearts, .card.diamonds {
-            color: red;
-        }
-        
-        .card.clubs, .card.spades {
+
+        .nav-link.active {
+            background: gold;
             color: black;
         }
-        
-        .card.face-down {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: transparent;
-            background-image: repeating-linear-gradient(45deg, gold 0px, gold 2px, transparent 2px, transparent 6px);
+
+        /* Sections */
+        .section {
+            display: none;
+            padding: 30px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s;
         }
-        
-        .card-corner {
-            font-size: 1.5em;
-            font-weight: bold;
+
+        .section.active {
+            display: block;
         }
-        
-        .card-corner.top {
-            align-self: flex-start;
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        .card-corner.bottom {
-            align-self: flex-end;
-            transform: rotate(180deg);
+
+        /* Cartes communes */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 2px solid gold;
+            transition: transform 0.3s;
         }
-        
-        .card-center {
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* ========== SECTION POKÉMON ========== */
+        .pokemon-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .pokemon-header h2 {
             font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .grade-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .grade-card {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
             text-align: center;
-            margin: auto 0;
         }
-        
-        .game-controls {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin: 20px 0;
-            flex-wrap: wrap;
+
+        .grade-card h3 {
+            color: #333;
+            margin-bottom: 15px;
         }
-        
-        .action-btn {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            border: none;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            font-weight: bold;
+
+        .card-preview {
+            background: white;
             border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid gold;
-            min-width: 120px;
-        }
-        
-        .action-btn:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #3498db;
-        }
-        
-        .action-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .action-btn.hit {
-            background: linear-gradient(135deg, #27ae60, #229954);
-        }
-        
-        .action-btn.stand {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-        }
-        
-        .message {
-            text-align: center;
-            color: gold;
-            font-size: 1.3em;
-            margin: 20px 0;
             padding: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            border: 1px solid gold;
+            margin: 15px 0;
+            border: 3px solid #333;
         }
-        
-        .new-game-btn {
-            background: linear-gradient(135deg, #9b59b6, #8e44ad);
-            border: none;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid gold;
+
+        .card-preview img {
             width: 100%;
-            margin-top: 20px;
-        }
-        
-        .new-game-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px #9b59b6;
-        }
-        
-        .warning {
-            color: #e74c3c;
-            font-size: 0.9em;
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        @media (max-width: 600px) {
-            .card {
-                width: 70px;
-                height: 98px;
-                font-size: 0.8em;
-            }
-            
-            .bet-btn, .action-btn {
-                padding: 10px 20px;
-                font-size: 1em;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="game-container">
-        <div class="header">
-            <h1>🎰 CASINO ROYALE 🎰</h1>
-            <p>Blackjack - Try your luck!</p>
-        </div>
-        
-        <div class="balance-box">
-            <div class="balance" id="balance">$1000</div>
-        </div>
-        
-        <div id="bettingPhase">
-            <div class="bet-controls">
-                <button class="bet-btn" onclick="placeBet(10)">Bet $10</button>
-                <button class="bet-btn" onclick="placeBet(25)">Bet $25</button>
-                <button class="bet-btn" onclick="placeBet(50)">Bet $50</button>
-                <button class="bet-btn" onclick="placeBet(100)">Bet $100</button>
-                <button class="bet-btn" onclick="placeBet(500)">Bet $500</button>
-            </div>
-        </div>
-        
-        <div class="game-area">
-            <div class="hand">
-                <div class="hand-title">
-                    <span>👤 Dealer's Hand</span>
-                    <span id="dealerValue">Value: 0</span>
-                </div>
-                <div class="cards" id="dealerCards"></div>
-            </div>
-            
-            <div class="hand">
-                <div class="hand-title">
-                    <span>👤 Your Hand</span>
-                    <span id="playerValue">Value: 0</span>
-                </div>
-                <div class="cards" id="playerCards"></div>
-            </div>
-        </div>
-        
-        <div class="game-controls" id="gameControls">
-            <button class="action-btn hit" onclick="hit()" disabled id="hitBtn">HIT</button>
-            <button class="action-btn stand" onclick="stand()" disabled id="standBtn">STAND</button>
-        </div>
-        
-        <div class="message" id="message">Place your bet to start!</div>
-        
-        <button class="new-game-btn" onclick="newGame()">🔄 New Game</button>
-        
-        <div class="warning">
-            ⚠️ For entertainment purposes only. Must be 18+ to play.
-        </div>
-    </div>
-
-    <script>
-        // Game state
-        let gameState = {
-            playerHand: [],
-            dealerHand: [],
-            deck: [],
-            gameStatus: 'betting', // betting, playerTurn, dealerTurn, gameOver
-            balance: 1000,
-            currentBet: 0,
-            message: 'Place your bet to start!'
-        };
-
-        // Initialize deck
-        function createDeck() {
-            const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-            const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-            const deck = [];
-            
-            for (const suit of suits) {
-                for (const rank of ranks) {
-                    let value = 0;
-                    if (rank === 'A') {
-                        value = 11;
-                    } else if (['K', 'Q', 'J'].includes(rank)) {
-                        value = 10;
-                    } else {
-                        value = parseInt(rank);
-                    }
-                    
-                    deck.push({
-                        suit,
-                        rank,
-                        value,
-                        faceUp: true
-                    });
-                }
-            }
-            
-            return shuffleDeck(deck);
+            max-width: 200px;
+            height: auto;
         }
 
-        function shuffleDeck(deck) {
-            const shuffled = [...deck];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-
-        // Calculate hand value
-        function calculateHandValue(hand) {
-            let value = 0;
-            let aces = 0;
-            
-            for (const card of hand) {
-                if (card.rank === 'A') {
-                    aces += 1;
-                    value += 11;
-                } else {
-                    value += card.value;
-                }
-            }
-            
-            while (value > 21 && aces > 0) {
-                value -= 10;
-                aces -= 1;
-            }
-            
-            return value;
-        }
-
-        // Render cards
-        function renderCard(card) {
-            if (!card.faceUp) {
-                return `
-                    <div class="card face-down">
-                        <div class="card-corner top">?</div>
-                        <div class="card-center">?</div>
-                        <div class="card-corner bottom">?</div>
-                    </div>
-                `;
-            }
-            
-            const suitSymbol = {
-                hearts: '♥',
-                diamonds: '♦',
-                clubs: '♣',
-                spades: '♠'
-            }[card.suit];
-            
-            return `
-                <div class="card ${card.suit}">
-                    <div class="card-corner top">${card.rank}<br>${suitSymbol}</div>
-                    <div class="card-center">${suitSymbol}</div>
-                    <div class="card-corner bottom">${card.rank}<br>${suitSymbol}</div>
-                </div>
-            `;
-        }
-
-        // Update UI
-        function updateUI() {
-            // Update balance
-            document.getElementById('balance').textContent = `$${gameState.balance}`;
-            
-            // Update message
-            document.getElementById('message').textContent = gameState.message;
-            
-            // Render dealer cards
-            const dealerCardsEl = document.getElementById('dealerCards');
-            dealerCardsEl.innerHTML = gameState.dealerHand.map(renderCard).join('');
-            
-            // Render player cards
-            const playerCardsEl = document.getElementById('playerCards');
-            playerCardsEl.innerHTML = gameState.playerHand.map(renderCard).join('');
-            
-            // Update hand values
-            const playerValue = calculateHandValue(gameState.playerHand);
-            const dealerValue = calculateHandValue(gameState.dealerHand);
-            
-            document.getElementById('playerValue').textContent = `Value: ${playerValue}`;
-            document.getElementById('dealerValue').textContent = `Value: ${dealerValue}`;
-            
-            // Update button states
-            const hitBtn = document.getElementById('hitBtn');
-            const standBtn = document.getElementById('standBtn');
-            const bettingBtns = document.querySelectorAll('.bet-btn');
-            
-            if (gameState.gameStatus === 'playerTurn') {
-                hitBtn.disabled = false;
-                standBtn.disabled = false;
-                bettingBtns.forEach(btn => btn.disabled = true);
-            } else {
-                hitBtn.disabled = true;
-                standBtn.disabled = true;
-                if (gameState.gameStatus === 'betting') {
-                    bettingBtns.forEach(btn => btn.disabled = false);
-                } else {
-                    bettingBtns.forEach(btn => btn.disabled = true);
-                }
-            }
-        }
-
-        // Place bet
-        function placeBet(amount) {
-            if (amount > gameState.balance) {
-                gameState.message = 'Insufficient balance!';
-                updateUI();
-                return;
-            }
-            
-            gameState.currentBet = amount;
-            gameState.balance -= amount;
-            gameState.gameStatus = 'playing';
-            gameState.message = 'Game started!';
-            
-            // Deal initial cards
-            gameState.deck = createDeck();
-            gameState.playerHand = [gameState.deck.pop(), gameState.deck.pop()];
-            gameState.dealerHand = [gameState.deck.pop(), {...gameState.deck.pop(), faceUp: false}];
-            
-            const playerValue = calculateHandValue(gameState.playerHand);
-            
-            if (playerValue === 21) {
-                // Blackjack!
-                const winnings = gameState.currentBet * 2.5;
-                gameState.balance += winnings;
-                gameState.gameStatus = 'gameOver';
-                gameState.message = `🎉 BLACKJACK! You win $${winnings}!`;
-                gameState.dealerHand[1].faceUp = true; // Reveal dealer's card
-            } else {
-                gameState.gameStatus = 'playerTurn';
-                gameState.message = 'Your turn - Hit or Stand?';
-            }
-            
-            updateUI();
-        }
-
-        // Hit
-        function hit() {
-            if (gameState.gameStatus !== 'playerTurn') return;
-            
-            const newCard = gameState.deck.pop();
-            newCard.faceUp = true;
-            gameState.playerHand.push(newCard);
-            
-            const playerValue = calculateHandValue(gameState.playerHand);
-            
-            if (playerValue > 21) {
-                // Bust
-                gameState.gameStatus = 'gameOver';
-                gameState.message = `💥 BUST! You lose $${gameState.currentBet}!`;
-                gameState.dealerHand[1].faceUp = true; // Reveal dealer's card
-            } else if (playerValue === 21) {
-                // 21 - automatically stand
-                stand();
-                return;
-            }
-            
-            updateUI();
-        }
-
-        // Stand
-        function stand() {
-            if (gameState.gameStatus !== 'playerTurn') return;
-            
-            gameState.gameStatus = 'dealerTurn';
-            gameState.message = "Dealer's turn...";
-            
-            // Reveal dealer's hidden card
-            gameState.dealerHand[1].faceUp = true;
-            updateUI();
-            
-            // Dealer's turn with delay for animation
-            setTimeout(() => {
-                let dealerValue = calculateHandValue(gameState.dealerHand);
-                
-                // Dealer hits on 16 and below, stands on 17 and above
-                while (dealerValue < 17) {
-                    const newCard = gameState.deck.pop();
-                    newCard.faceUp = true;
-                    gameState.dealerHand.push(newCard);
-                    dealerValue = calculateHandValue(gameState.dealerHand);
-                    updateUI();
-                }
-                
-                // Determine winner
-                const playerValue = calculateHandValue(gameState.playerHand);
-                
-                if (dealerValue > 21) {
-                    // Dealer busts - player wins
-                    const winnings = gameState.currentBet * 2;
-                    gameState.balance += winnings;
-                    gameState.message = `🎉 Dealer busts! You win $${winnings}!`;
-                } else if (dealerValue > playerValue) {
-                    // Dealer wins
-                    gameState.message = `😞 Dealer wins! You lose $${gameState.currentBet}!`;
-                } else if (dealerValue < playerValue) {
-                    // Player wins
-                    const winnings = gameState.currentBet * 2;
-                    gameState.balance += winnings;
-                    gameState.message = `🎉 You win $${winnings}!`;
-                } else {
-                    // Push - tie
-                    gameState.balance += gameState.currentBet;
-                    gameState.message = `🤝 Push! Your bet of $${gameState.currentBet} is returned.`;
-                }
-                
-                gameState.gameStatus = 'gameOver';
-                updateUI();
-            }, 1000);
-        }
-
-        // New game
-        function newGame() {
-            gameState = {
-                playerHand: [],
-                dealerHand: [],
-                deck: createDeck(),
-                gameStatus: 'betting',
-                balance: 1000,
-                currentBet: 0,
-                message: 'Place your bet to start!'
-            };
-            updateUI();
-        }
-
-        // Initialize game
-        window.onload = () => {
-            gameState.deck = createDeck();
-            updateUI();
-        };
-    </script>
-</body>
-</html>
+        .grade-score {
+            font-size: 3em;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 
