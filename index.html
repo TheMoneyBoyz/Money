@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎮 MegaPlateforme - Pokémon, Crypto & Casino</title>
+    <title>🎮 MegaPlateforme V2 - Pokémon, Crypto & Casino</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: #1a1a2e;
-            min-height: 100vh;
+            background: #0a0f1e;
+            color: white;
         }
 
         /* Navigation */
         .navbar {
-            background: #16213e;
+            background: linear-gradient(135deg, #1a1f2f, #0d1222);
             padding: 1rem;
             position: sticky;
             top: 0;
-            border-bottom: 3px solid gold;
+            z-index: 1000;
+            border-bottom: 3px solid #00ff88;
+            box-shadow: 0 5px 20px rgba(0,255,136,0.2);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -36,277 +38,459 @@
         }
 
         .logo {
-            color: gold;
-            font-size: 1.5rem;
+            color: #00ff88;
+            font-size: 1.8rem;
             font-weight: bold;
+            text-shadow: 0 0 15px #00ff88;
         }
 
         .nav-links {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .nav-link {
             color: white;
             text-decoration: none;
-            padding: 8px 20px;
-            border-radius: 25px;
+            padding: 10px 25px;
+            border-radius: 30px;
             cursor: pointer;
-            background: #0f3460;
+            font-weight: bold;
+            transition: all 0.3s;
             border: 2px solid transparent;
         }
 
         .nav-link:hover {
-            border-color: gold;
+            border-color: #00ff88;
+            transform: translateY(-2px);
         }
 
         .nav-link.active {
-            background: gold;
+            background: #00ff88;
             color: black;
+        }
+
+        .global-balance {
+            background: #1a1f2f;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 2px solid #00ff88;
+            font-weight: bold;
         }
 
         /* Sections */
         .section {
             display: none;
-            padding: 20px;
-            max-width: 1200px;
+            padding: 30px;
+            max-width: 1400px;
             margin: 0 auto;
+            animation: fadeIn 0.5s;
         }
 
         .section.active {
             display: block;
         }
 
-        /* ===== POKÉMON ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== SECTION POKÉMON ========== */
         .pokemon-section {
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            padding: 20px;
-            border-radius: 20px;
-            margin-top: 20px;
+            background: linear-gradient(135deg, #ff3366, #ff6b6b);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(255,51,102,0.3);
         }
 
         .pokemon-header {
-            text-align: center;
-            color: white;
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
-        .pokemon-header h2 {
-            font-size: 2em;
-        }
-
-        .grade-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .grade-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
+        .pokemon-balance {
+            background: #1a1f2f;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.3em;
             border: 3px solid gold;
         }
 
-        .pokemon-emoji {
-            font-size: 5em;
-            margin: 10px 0;
+        .booster-section {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
         }
 
-        .grade-score {
-            font-size: 2em;
-            color: gold;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .grade-btn {
-            background: #4ecdc4;
-            color: white;
-            border: none;
-            padding: 10px 30px;
-            border-radius: 25px;
-            font-size: 1.1em;
+        .booster-pack {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
             cursor: pointer;
-            border: 2px solid gold;
+            transition: all 0.3s;
+            border: 4px solid gold;
+            width: 200px;
         }
 
-        .grade-btn:hover {
-            transform: scale(1.05);
+        .booster-pack:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 20px 40px rgba(255,215,0,0.5);
         }
 
-        .collection-grid {
+        .booster-pack.premium {
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+        }
+
+        .booster-icon {
+            font-size: 5em;
+            margin-bottom: 10px;
+        }
+
+        .booster-price {
+            background: black;
+            color: white;
+            padding: 8px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .opening-animation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.95);
+            padding: 40px;
+            border-radius: 30px;
+            z-index: 2000;
+            display: none;
+            text-align: center;
+            border: 5px solid gold;
+            box-shadow: 0 0 50px gold;
+        }
+
+        .opening-animation.active {
+            display: block;
+        }
+
+        .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
-        .collection-card {
+        .pokemon-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 15px;
             text-align: center;
-            border: 2px solid gold;
+            color: black;
+            border: 3px solid gold;
+            position: relative;
+            transition: all 0.3s;
         }
 
-        /* ===== CRYPTO ===== */
+        .pokemon-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+        }
+
+        .card-grade {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #f1c40f, #e67e22);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            border: 3px solid white;
+        }
+
+        .card-print-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(45deg, 
+                rgba(255,255,255,0.1) 0px, 
+                rgba(255,255,255,0.1) 2px,
+                transparent 2px,
+                transparent 6px);
+            pointer-events: none;
+            border-radius: 12px;
+        }
+
+        .card-white-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.3) 1px, transparent 1px);
+            background-size: 10px 10px;
+            pointer-events: none;
+            border-radius: 12px;
+        }
+
+        /* ========== SECTION CRYPTO ========== */
         .crypto-section {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            padding: 20px;
-            border-radius: 20px;
-            margin-top: 20px;
+            background: linear-gradient(135deg, #1a2a3a, #0a1a2a);
+            border-radius: 30px;
+            padding: 30px;
         }
 
         .crypto-header {
-            text-align: center;
-            color: white;
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
-        .crypto-header h2 {
-            font-size: 2em;
+        .crypto-balance {
+            background: #2a3a4a;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.3em;
+            border: 3px solid #00ff88;
         }
 
-        .crypto-dashboard {
+        .chart-container {
+            background: #1e2a3a;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 3px solid #00ff88;
+        }
+
+        .crypto-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
+            margin-top: 30px;
         }
 
         .crypto-card {
-            background: white;
-            border-radius: 15px;
+            background: #1e2a3a;
+            border-radius: 20px;
             padding: 20px;
-            text-align: center;
-            border: 3px solid gold;
-        }
-
-        .crypto-icon {
-            font-size: 4em;
+            border: 3px solid #00ff88;
         }
 
         .crypto-price {
-            font-size: 1.5em;
-            color: #27ae60;
+            font-size: 2em;
             font-weight: bold;
+            color: #00ff88;
             margin: 10px 0;
+        }
+
+        .price-change {
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .price-change.positive {
+            background: #00ff88;
+            color: black;
+        }
+
+        .price-change.negative {
+            background: #ff3366;
+            color: white;
+        }
+
+        .mini-chart {
+            height: 60px;
+            margin: 15px 0;
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+        }
+
+        .mini-bar {
+            flex: 1;
+            background: #00ff88;
+            border-radius: 3px 3px 0 0;
+            transition: height 0.5s;
+        }
+
+        .trade-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         .trade-input {
-            width: 80px;
-            padding: 5px;
-            margin: 10px 0;
-            border: 2px solid gold;
-            border-radius: 5px;
-            text-align: center;
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #00ff88;
+            background: #2a3a4a;
+            color: white;
         }
 
         .trade-btn {
-            background: #3498db;
-            color: white;
+            padding: 10px 20px;
             border: none;
-            padding: 5px 15px;
-            margin: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .portfolio-value {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-            text-align: center;
-            font-size: 1.5em;
+            border-radius: 10px;
             font-weight: bold;
-            border: 3px solid gold;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        /* ===== CASINO ===== */
+        .buy-btn {
+            background: #00ff88;
+            color: black;
+        }
+
+        .sell-btn {
+            background: #ff3366;
+            color: white;
+        }
+
+        /* ========== SECTION CASINO ========== */
         .casino-section {
-            background: linear-gradient(135deg, #8e44ad, #c0392b);
-            padding: 20px;
-            border-radius: 20px;
-            margin-top: 20px;
+            background: linear-gradient(135deg, #42275a, #734b6d);
+            border-radius: 30px;
+            padding: 30px;
         }
 
         .casino-header {
-            text-align: center;
-            color: white;
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
-        .casino-header h2 {
-            font-size: 2em;
+        .casino-balance {
+            background: #2a1a3a;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.3em;
+            border: 3px solid gold;
         }
 
-        .games-grid {
+        .casino-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
         }
 
         .game-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
             text-align: center;
             border: 3px solid gold;
         }
 
+        .slot-machine {
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px 0;
+        }
+
         .reels {
-            background: #333;
-            color: white;
-            font-size: 3em;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 4em;
+            background: #0a0a1a;
             padding: 20px;
+            border-radius: 15px;
+            border: 3px solid gold;
+        }
+
+        .bet-input {
+            width: 100px;
+            padding: 10px;
+            font-size: 1.2em;
+            text-align: center;
             border-radius: 10px;
-            margin: 15px 0;
+            border: 2px solid gold;
+            margin: 15px;
+        }
+
+        .play-btn {
+            background: linear-gradient(135deg, gold, #ffd700);
+            color: black;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px gold;
         }
 
         .dice-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            font-size: 4em;
-            margin: 15px 0;
+            gap: 30px;
+            font-size: 5em;
+            margin: 30px 0;
         }
 
-        .play-btn {
-            background: gold;
-            color: black;
-            border: none;
-            padding: 10px 30px;
-            border-radius: 25px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
+        .dice {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            border: 4px solid gold;
         }
 
-        .play-btn:hover {
-            transform: scale(1.05);
+        .roulette-wheel {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                red 0deg 45deg,
+                black 45deg 90deg,
+                red 90deg 135deg,
+                black 135deg 180deg,
+                red 180deg 225deg,
+                black 225deg 270deg,
+                red 270deg 315deg,
+                black 315deg 360deg
+            );
+            margin: 20px auto;
+            border: 5px solid gold;
+            transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1);
         }
 
-        .balance-display {
-            background: rgba(0,0,0,0.8);
-            color: gold;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.2em;
-            margin: 20px 0;
-            border: 2px solid gold;
-        }
-
-        .warning {
-            color: #ff6b6b;
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.8em;
+        .history {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
         }
     </style>
 </head>
@@ -314,12 +498,13 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">🎮 MegaPlateforme</div>
+            <div class="logo">🎮 MegaPlateforme V2</div>
             <div class="nav-links">
                 <a class="nav-link active" onclick="showSection('pokemon')">🎴 Pokémon</a>
                 <a class="nav-link" onclick="showSection('crypto')">📈 Crypto</a>
                 <a class="nav-link" onclick="showSection('casino')">🎰 Casino</a>
             </div>
+            <div class="global-balance" id="globalBalance">💰 $1000</div>
         </div>
     </nav>
 
@@ -327,39 +512,33 @@
     <section id="pokemon-section" class="section active">
         <div class="pokemon-section">
             <div class="pokemon-header">
-                <h2>🎴 Centre de Grading Pokémon</h2>
-                <p>Faites expertiser vos cartes !</p>
+                <h1 style="font-size:2.5em;">🎴 Pokémon Grading & Booster</h1>
+                <div class="pokemon-balance" id="pokemonBalance">💰 $500</div>
             </div>
 
-            <div class="balance-display" id="pokemon-balance">
-                Collection: 0 cartes
-            </div>
-
-            <div class="grade-container">
-                <div class="grade-card">
-                    <div class="pokemon-emoji">⚡</div>
-                    <h3>Pikachu</h3>
-                    <div class="grade-score" id="grade1">-</div>
-                    <button class="grade-btn" onclick="gradePokemon(1, 'Pikachu', '⚡')">Expertiser</button>
+            <div class="booster-section">
+                <div class="booster-pack" onclick="openBooster('basic')">
+                    <div class="booster-icon">🎁</div>
+                    <h3>Booster Basic</h3>
+                    <p>3 cartres communes</p>
+                    <div class="booster-price">$50</div>
                 </div>
-
-                <div class="grade-card">
-                    <div class="pokemon-emoji">🔥</div>
-                    <h3>Dracaufeu</h3>
-                    <div class="grade-score" id="grade2">-</div>
-                    <button class="grade-btn" onclick="gradePokemon(2, 'Dracaufeu', '🔥')">Expertiser</button>
+                <div class="booster-pack premium" onclick="openBooster('rare')">
+                    <div class="booster-icon">✨</div>
+                    <h3>Booster Rare</h3>
+                    <p>3 cartres rares</p>
+                    <div class="booster-price">$150</div>
                 </div>
-
-                <div class="grade-card">
-                    <div class="pokemon-emoji">💧</div>
-                    <h3>Tortank</h3>
-                    <div class="grade-score" id="grade3">-</div>
-                    <button class="grade-btn" onclick="gradePokemon(3, 'Tortank', '💧')">Expertiser</button>
+                <div class="booster-pack" style="background:linear-gradient(135deg,#ff0000,#ff8800)" onclick="openBooster('legendary')">
+                    <div class="booster-icon">💫</div>
+                    <h3>Booster Légendaire</h3>
+                    <p>5 cartres légendaires</p>
+                    <div class="booster-price">$300</div>
                 </div>
             </div>
 
-            <h3 style="color:white; text-align:center;">Ma Collection</h3>
-            <div class="collection-grid" id="pokemon-collection"></div>
+            <h2 style="color:white; margin:20px 0;">📋 Ma Collection</h2>
+            <div class="cards-grid" id="pokemonCollection"></div>
         </div>
     </section>
 
@@ -367,49 +546,15 @@
     <section id="crypto-section" class="section">
         <div class="crypto-section">
             <div class="crypto-header">
-                <h2>📈 Crypto Trading</h2>
-                <p>Achetez et vendez des cryptos</p>
+                <h1 style="font-size:2.5em;">📈 Crypto Trading</h1>
+                <div class="crypto-balance" id="cryptoBalance">💰 $500</div>
             </div>
 
-            <div class="balance-display" id="crypto-balance">
-                Portefeuille: 10000$
+            <div class="chart-container">
+                <canvas id="priceChart" style="width:100%; height:300px;"></canvas>
             </div>
 
-            <div class="crypto-dashboard">
-                <div class="crypto-card">
-                    <div class="crypto-icon">₿</div>
-                    <h3>Bitcoin</h3>
-                    <div class="crypto-price" id="btc-price">45000$</div>
-                    <input type="number" id="btc-amount" class="trade-input" value="0.01" step="0.01">
-                    <br>
-                    <button class="trade-btn" onclick="buyCrypto('BTC')">Acheter</button>
-                    <button class="trade-btn" onclick="sellCrypto('BTC')">Vendre</button>
-                </div>
-
-                <div class="crypto-card">
-                    <div class="crypto-icon">Ξ</div>
-                    <h3>Ethereum</h3>
-                    <div class="crypto-price" id="eth-price">3200$</div>
-                    <input type="number" id="eth-amount" class="trade-input" value="0.1" step="0.1">
-                    <br>
-                    <button class="trade-btn" onclick="buyCrypto('ETH')">Acheter</button>
-                    <button class="trade-btn" onclick="sellCrypto('ETH')">Vendre</button>
-                </div>
-
-                <div class="crypto-card">
-                    <div class="crypto-icon">●</div>
-                    <h3>Cardano</h3>
-                    <div class="crypto-price" id="ada-price">1.25$</div>
-                    <input type="number" id="ada-amount" class="trade-input" value="10" step="10">
-                    <br>
-                    <button class="trade-btn" onclick="buyCrypto('ADA')">Acheter</button>
-                    <button class="trade-btn" onclick="sellCrypto('ADA')">Vendre</button>
-                </div>
-            </div>
-
-            <div class="portfolio-value" id="portfolio-total">
-                Total: 10000$
-            </div>
+            <div class="crypto-grid" id="cryptoGrid"></div>
         </div>
     </section>
 
@@ -417,255 +562,429 @@
     <section id="casino-section" class="section">
         <div class="casino-section">
             <div class="casino-header">
-                <h2>🎰 Casino Royale</h2>
-                <p>Plusieurs jeux pour s'amuser !</p>
+                <h1 style="font-size:2.5em;">🎰 Casino Royale</h1>
+                <div class="casino-balance" id="casinoBalance">💰 $1000</div>
             </div>
 
-            <div class="balance-display" id="casino-balance">
-                Jetons: 1000
-            </div>
-
-            <div class="games-grid">
+            <div class="casino-grid">
                 <!-- Machine à sous -->
                 <div class="game-card">
-                    <h3>🎰 Machine à sous</h3>
-                    <div class="reels" id="slot-result">🍒 🍒 🍒</div>
-                    <p>Mise: 10 jetons</p>
-                    <button class="play-btn" onclick="playSlots()">Jouer</button>
+                    <h2 style="font-size:2em;">🎰 Machine à sous</h2>
+                    <div class="slot-machine">
+                        <div class="reels" id="slotReels">
+                            <span>🍒</span>
+                            <span>🍒</span>
+                            <span>🍒</span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="number" id="slotBet" class="bet-input" value="10" min="1" max="1000">
+                    </div>
+                    <button class="play-btn" onclick="playSlots()">🎰 Jouer</button>
                 </div>
 
-                <!-- Dés -->
+                <!-- Jeu de dés -->
                 <div class="game-card">
-                    <h3>🎲 Jeu de dés</h3>
-                    <div class="dice-container" id="dice-result">
-                        <span>⚀</span> <span>⚀</span>
+                    <h2 style="font-size:2em;">🎲 Jeu de dés</h2>
+                    <div class="dice-container">
+                        <div class="dice" id="dice1">⚀</div>
+                        <div class="dice" id="dice2">⚀</div>
                     </div>
-                    <p>Mise: 20 jetons</p>
-                    <button class="play-btn" onclick="playDice()">Lancer</button>
+                    <div>
+                        <input type="number" id="diceBet" class="bet-input" value="20" min="1" max="1000">
+                    </div>
+                    <p>Double = x3, Total 7 = x2</p>
+                    <button class="play-btn" onclick="playDice()">🎲 Lancer</button>
                 </div>
 
                 <!-- Roulette -->
                 <div class="game-card">
-                    <h3>🎡 Roulette</h3>
-                    <div style="font-size: 3em; margin:20px;">🎡</div>
-                    <div id="roulette-result">-</div>
-                    <p>Mise: 15 jetons</p>
-                    <button class="play-btn" onclick="playRoulette()">Tourner</button>
+                    <h2 style="font-size:2em;">🎡 Roulette</h2>
+                    <div class="roulette-wheel" id="rouletteWheel"></div>
+                    <div>
+                        <input type="number" id="rouletteBet" class="bet-input" value="15" min="1" max="1000">
+                    </div>
+                    <div>
+                        <select id="rouletteChoice" class="bet-input" style="width:150px;">
+                            <option value="rouge">Rouge (x2)</option>
+                            <option value="noir">Noir (x2)</option>
+                            <option value="pair">Pair (x2)</option>
+                            <option value="impair">Impair (x2)</option>
+                            <option value="0">Zéro (x35)</option>
+                        </select>
+                    </div>
+                    <button class="play-btn" onclick="playRoulette()">🎡 Tourner</button>
                 </div>
+            </div>
+
+            <div class="history" id="casinoHistory">
+                <h3>📜 Derniers jeux</h3>
             </div>
         </div>
     </section>
 
-    <div class="warning">
-        ⚠️ Jeu responsable - Interdit aux mineurs
+    <!-- Animation d'ouverture -->
+    <div class="opening-animation" id="openingAnimation">
+        <h2 style="color:gold; margin-bottom:20px;">✨ Ouverture du booster... ✨</h2>
+        <div style="font-size:5em; animation:spin 1s infinite;">🎁</div>
     </div>
 
     <script>
-        // Navigation
-        function showSection(section) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            
-            document.getElementById(section + '-section').classList.add('active');
-            event.target.classList.add('active');
+        // ========== SYSTÈME DE BALANCE GLOBALE ==========
+        let globalMoney = 1000;
+        const balances = {
+            pokemon: 500,
+            crypto: 500,
+            casino: 1000
+        };
+
+        function updateBalances() {
+            document.getElementById('globalBalance').innerHTML = `💰 $${globalMoney}`;
+            document.getElementById('pokemonBalance').innerHTML = `💰 $${balances.pokemon}`;
+            document.getElementById('cryptoBalance').innerHTML = `💰 $${balances.crypto}`;
+            document.getElementById('casinoBalance').innerHTML = `💰 $${balances.casino}`;
         }
 
-        // ===== POKÉMON =====
-        let pokemonCollection = [];
+        // ========== SECTION POKÉMON ==========
+        let pokemonCards = [];
+        const pokemonList = [
+            { name: 'Pikachu', emoji: '⚡', rarity: 'commune' },
+            { name: 'Dracaufeu', emoji: '🔥', rarity: 'rare' },
+            { name: 'Tortank', emoji: '💧', rarity: 'rare' },
+            { name: 'Florizarre', emoji: '🌿', rarity: 'rare' },
+            { name: 'Mewtwo', emoji: '🔮', rarity: 'legendaire' },
+            { name: 'Lugia', emoji: '🌊', rarity: 'legendaire' },
+            { name: 'Rayquaza', emoji: '🐉', rarity: 'legendaire' },
+            { name: 'Evoli', emoji: '🐶', rarity: 'commune' },
+            { name: 'Rondoudou', emoji: '🎤', rarity: 'commune' },
+            { name: 'Carapuce', emoji: '🐢', rarity: 'commune' },
+            { name: 'Salamèche', emoji: '🦎', rarity: 'commune' },
+            { name: 'Bulbizarre', emoji: '🌱', rarity: 'commune' }
+        ];
 
-        function gradePokemon(id, name, emoji) {
-            let grade = Math.floor(Math.random() * 10) + 1;
-            document.getElementById('grade' + id).textContent = grade + '/10';
+        function openBooster(type) {
+            let price = 50;
+            let cardCount = 3;
+            let rarityBoost = 1;
             
-            pokemonCollection.push({name, emoji, grade});
+            if(type === 'rare') {
+                price = 150;
+                cardCount = 3;
+                rarityBoost = 2;
+            } else if(type === 'legendary') {
+                price = 300;
+                cardCount = 5;
+                rarityBoost = 3;
+            }
+
+            if(balances.pokemon < price) {
+                alert("Pas assez d'argent!");
+                return;
+            }
+
+            balances.pokemon -= price;
+            globalMoney -= price;
             
-            let collectionDiv = document.getElementById('pokemon-collection');
-            collectionDiv.innerHTML = '';
+            // Animation
+            document.getElementById('openingAnimation').classList.add('active');
             
-            pokemonCollection.forEach(card => {
-                collectionDiv.innerHTML += `
-                    <div class="collection-card">
-                        <div style="font-size:3em;">${card.emoji}</div>
-                        <h4>${card.name}</h4>
-                        <p>Grade: ${card.grade}/10</p>
+            setTimeout(() => {
+                document.getElementById('openingAnimation').classList.remove('active');
+                
+                // Générer les cartes
+                for(let i = 0; i < cardCount; i++) {
+                    let randomIndex = Math.floor(Math.random() * pokemonList.length);
+                    let card = {...pokemonList[randomIndex]};
+                    
+                    // Grade aléatoire avec variations
+                    let gradeBase = Math.floor(Math.random() * 10) + 1;
+                    
+                    // Appliquer des défauts aléatoires
+                    let hasPrintLine = Math.random() < 0.3; // 30% de chance d'avoir des print lines
+                    let hasWhiteDots = Math.random() < 0.2; // 20% de chance d'avoir des points blancs
+                    
+                    // Ajuster le grade en fonction des défauts
+                    let grade = gradeBase;
+                    if(hasPrintLine) grade = Math.max(1, grade - Math.floor(Math.random() * 3));
+                    if(hasWhiteDots) grade = Math.max(1, grade - Math.floor(Math.random() * 2));
+                    
+                    // Bonus de rareté
+                    if(card.rarity === 'rare' && rarityBoost > 1) {
+                        grade = Math.min(10, grade + 2);
+                    } else if(card.rarity === 'legendaire' && rarityBoost > 2) {
+                        grade = Math.min(10, grade + 3);
+                    }
+                    
+                    pokemonCards.push({
+                        ...card,
+                        grade: grade,
+                        printLines: hasPrintLine,
+                        whiteDots: hasWhiteDots,
+                        id: Date.now() + i
+                    });
+                }
+                
+                updatePokemonCollection();
+                updateBalances();
+                
+                alert(`✨ Vous avez obtenu ${cardCount} nouvelles cartes !`);
+            }, 2000);
+        }
+
+        function updatePokemonCollection() {
+            const collection = document.getElementById('pokemonCollection');
+            collection.innerHTML = '';
+            
+            pokemonCards.sort((a, b) => b.grade - a.grade);
+            
+            pokemonCards.forEach(card => {
+                let gradeColor = card.grade >= 9 ? 'gold' : (card.grade >= 7 ? 'silver' : 'bronze');
+                
+                collection.innerHTML += `
+                    <div class="pokemon-card" style="border-color: ${gradeColor};">
+                        <div class="card-grade" style="background: ${gradeColor};">${card.grade}</div>
+                        ${card.printLines ? '<div class="card-print-lines"></div>' : ''}
+                        ${card.whiteDots ? '<div class="card-white-dots"></div>' : ''}
+                        <div style="font-size: 4em;">${card.emoji}</div>
+                        <h3>${card.name}</h3>
+                        <p>${card.rarity}</p>
+                        ${card.printLines ? '<p style="color:red; font-size:0.8em;">📝 Print lines</p>' : ''}
+                        ${card.whiteDots ? '<p style="color:blue; font-size:0.8em;">⚪ Points blancs</p>' : ''}
                     </div>
                 `;
             });
-            
-            document.getElementById('pokemon-balance').innerHTML = 
-                `Collection: ${pokemonCollection.length} cartes`;
         }
 
-        // ===== CRYPTO =====
+        // ========== SECTION CRYPTO ==========
+        let cryptos = [
+            { name: 'Bitcoin', symbol: 'BTC', emoji: '₿', price: 45000, history: [] },
+            { name: 'Ethereum', symbol: 'ETH', emoji: 'Ξ', price: 3200, history: [] },
+            { name: 'Cardano', symbol: 'ADA', emoji: '●', price: 1.25, history: [] },
+            { name: 'Solana', symbol: 'SOL', emoji: '☀️', price: 110, history: [] }
+        ];
+
         let portfolio = {
-            usd: 10000,
-            btc: 0,
-            eth: 0,
-            ada: 0
+            USD: 500,
+            BTC: 0,
+            ETH: 0,
+            ADA: 0,
+            SOL: 0
         };
 
-        let prices = {
-            btc: 45000,
-            eth: 3200,
-            ada: 1.25
-        };
-
-        function buyCrypto(crypto) {
-            let amount, cost;
+        function updateCryptoPrices() {
+            cryptos.forEach(crypto => {
+                // Changement de prix réaliste (entre -5% et +5%)
+                let change = (Math.random() - 0.5) * 0.1;
+                crypto.price = crypto.price * (1 + change);
+                crypto.price = Math.max(crypto.price, 0.01);
+                
+                // Garder l'historique
+                crypto.history.push(crypto.price);
+                if(crypto.history.length > 20) crypto.history.shift();
+            });
             
-            if(crypto === 'BTC') {
-                amount = parseFloat(document.getElementById('btc-amount').value);
-                cost = amount * prices.btc;
-                if(portfolio.usd >= cost) {
-                    portfolio.usd -= cost;
-                    portfolio.btc += amount;
-                }
-            }
-            else if(crypto === 'ETH') {
-                amount = parseFloat(document.getElementById('eth-amount').value);
-                cost = amount * prices.eth;
-                if(portfolio.usd >= cost) {
-                    portfolio.usd -= cost;
-                    portfolio.eth += amount;
-                }
-            }
-            else if(crypto === 'ADA') {
-                amount = parseFloat(document.getElementById('ada-amount').value);
-                cost = amount * prices.ada;
-                if(portfolio.usd >= cost) {
-                    portfolio.usd -= cost;
-                    portfolio.ada += amount;
-                }
-            }
-            
-            updatePortfolio();
+            renderCrypto();
         }
 
-        function sellCrypto(crypto) {
-            let amount;
+        function renderCrypto() {
+            const grid = document.getElementById('cryptoGrid');
+            grid.innerHTML = '';
             
-            if(crypto === 'BTC') {
-                amount = parseFloat(document.getElementById('btc-amount').value);
-                if(portfolio.btc >= amount) {
-                    portfolio.btc -= amount;
-                    portfolio.usd += amount * prices.btc;
-                }
-            }
-            else if(crypto === 'ETH') {
-                amount = parseFloat(document.getElementById('eth-amount').value);
-                if(portfolio.eth >= amount) {
-                    portfolio.eth -= amount;
-                    portfolio.usd += amount * prices.eth;
-                }
-            }
-            else if(crypto === 'ADA') {
-                amount = parseFloat(document.getElementById('ada-amount').value);
-                if(portfolio.ada >= amount) {
-                    portfolio.ada -= amount;
-                    portfolio.usd += amount * prices.ada;
-                }
-            }
-            
-            updatePortfolio();
+            cryptos.forEach((crypto, index) => {
+                let change = crypto.history.length > 1 ? 
+                    ((crypto.price - crypto.history[crypto.history.length-2]) / crypto.history[crypto.history.length-2] * 100) : 0;
+                
+                // Mini graphique
+                let maxPrice = Math.max(...crypto.history, crypto.price);
+                let minPrice = Math.min(...crypto.history, crypto.price);
+                
+                grid.innerHTML += `
+                    <div class="crypto-card">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <span style="font-size:3em;">${crypto.emoji}</span>
+                            <div>
+                                <h3>${crypto.name}</h3>
+                                <p>${crypto.symbol}</p>
+                            </div>
+                        </div>
+                        <div class="crypto-price">$${crypto.price.toFixed(2)}</div>
+                        <div class="price-change ${change >= 0 ? 'positive' : 'negative'}">
+                            ${change >= 0 ? '+' : ''}${change.toFixed(2)}%
+                        </div>
+                        <div class="mini-chart">
+                            ${crypto.history.map(p => {
+                                let height = ((p - minPrice) / (maxPrice - minPrice || 1)) * 50;
+                                return `<div class="mini-bar" style="height:${height}px;"></div>`;
+                            }).join('')}
+                        </div>
+                        <div class="trade-controls">
+                            <input type="number" id="${crypto.symbol}-amount" class="trade-input" value="${crypto.symbol === 'BTC' ? 0.01 : (crypto.symbol === 'ETH' ? 0.1 : 10)}" step="any">
+                            <button class="trade-btn buy-btn" onclick="trade('${crypto.symbol}', 'buy')">Acheter</button>
+                            <button class="trade-btn sell-btn" onclick="trade('${crypto.symbol}', 'sell')">Vendre</button>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
-        function updatePortfolio() {
-            document.getElementById('crypto-balance').innerHTML = 
-                `Portefeuille: ${portfolio.usd.toFixed(2)}$ | BTC: ${portfolio.btc.toFixed(4)} | ETH: ${portfolio.eth.toFixed(2)} | ADA: ${portfolio.ada}`;
+        function trade(symbol, type) {
+            let crypto = cryptos.find(c => c.symbol === symbol);
+            let amount = parseFloat(document.getElementById(`${symbol}-amount`).value);
             
-            let total = portfolio.usd + 
-                       (portfolio.btc * prices.btc) + 
-                       (portfolio.eth * prices.eth) + 
-                       (portfolio.ada * prices.ada);
+            if(type === 'buy') {
+                let cost = amount * crypto.price;
+                if(balances.crypto >= cost) {
+                    balances.crypto -= cost;
+                    globalMoney -= cost;
+                    portfolio[symbol] = (portfolio[symbol] || 0) + amount;
+                } else {
+                    alert('Fonds insuffisants!');
+                }
+            } else {
+                if(portfolio[symbol] >= amount) {
+                    portfolio[symbol] -= amount;
+                    let revenue = amount * crypto.price;
+                    balances.crypto += revenue;
+                    globalMoney += revenue;
+                } else {
+                    alert('Pas assez de cryptos!');
+                }
+            }
             
-            document.getElementById('portfolio-total').textContent = 
-                `Total: ${total.toFixed(2)}$`;
+            updateBalances();
         }
 
-        // ===== CASINO =====
-        let casinoJetons = 1000;
+        // ========== SECTION CASINO ==========
+        let casinoHistory = [];
 
         function playSlots() {
-            if(casinoJetons < 10) {
+            let bet = parseInt(document.getElementById('slotBet').value);
+            
+            if(balances.casino < bet) {
                 alert('Pas assez de jetons!');
                 return;
             }
             
-            casinoJetons -= 10;
-            let symbols = ['🍒', '🍋', '7️⃣', '💎', '🎰'];
+            balances.casino -= bet;
+            globalMoney -= bet;
+            
+            let symbols = ['🍒', '🍋', '🍊', '7️⃣', '💎', '🎰', '⭐'];
             let r1 = symbols[Math.floor(Math.random() * symbols.length)];
             let r2 = symbols[Math.floor(Math.random() * symbols.length)];
             let r3 = symbols[Math.floor(Math.random() * symbols.length)];
             
-            document.getElementById('slot-result').textContent = r1 + ' ' + r2 + ' ' + r3;
+            document.getElementById('slotReels').innerHTML = 
+                `<span>${r1}</span><span>${r2}</span><span>${r3}</span>`;
             
+            let win = 0;
             if(r1 === r2 && r2 === r3) {
-                casinoJetons += 50;
-                alert('🎉 Gagné! +50 jetons!');
+                if(r1 === '7️⃣') win = bet * 20;
+                else if(r1 === '💎') win = bet * 10;
+                else if(r1 === '🎰') win = bet * 5;
+                else win = bet * 3;
+            } else if(r1 === r2 || r2 === r3 || r1 === r3) {
+                win = bet * 1.5;
             }
             
-            updateCasino();
+            if(win > 0) {
+                balances.casino += win;
+                globalMoney += win;
+                casinoHistory.unshift(`🎰 Gagné $${win} aux machines à sous!`);
+            } else {
+                casinoHistory.unshift(`😞 Perdu $${bet} aux machines à sous`);
+            }
+            
+            updateCasinoHistory();
+            updateBalances();
         }
 
         function playDice() {
-            if(casinoJetons < 20) {
+            let bet = parseInt(document.getElementById('diceBet').value);
+            
+            if(balances.casino < bet) {
                 alert('Pas assez de jetons!');
                 return;
             }
             
-            casinoJetons -= 20;
+            balances.casino -= bet;
+            globalMoney -= bet;
+            
             let d1 = Math.floor(Math.random() * 6) + 1;
             let d2 = Math.floor(Math.random() * 6) + 1;
+            let sum = d1 + d2;
             
-            let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-            document.getElementById('dice-result').innerHTML = 
-                `<span>${diceFaces[d1-1]}</span> <span>${diceFaces[d2-1]}</span>`;
+            const diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+            document.getElementById('dice1').innerHTML = diceFaces[d1-1];
+            document.getElementById('dice2').innerHTML = diceFaces[d2-1];
             
+            let win = 0;
             if(d1 === d2) {
-                casinoJetons += 40;
-                alert('🎉 Double! +40 jetons!');
+                win = bet * 3;
+            } else if(sum === 7) {
+                win = bet * 2;
             }
             
-            updateCasino();
+            if(win > 0) {
+                balances.casino += win;
+                globalMoney += win;
+                casinoHistory.unshift(`🎲 Gagné $${win} aux dés (${d1}+${d2}=${sum})!`);
+            } else {
+                casinoHistory.unshift(`🎲 Perdu $${bet} aux dés (${d1}+${d2})`);
+            }
+            
+            updateCasinoHistory();
+            updateBalances();
         }
 
         function playRoulette() {
-            if(casinoJetons < 15) {
+            let bet = parseInt(document.getElementById('rouletteBet').value);
+            let choice = document.getElementById('rouletteChoice').value;
+            
+            if(balances.casino < bet) {
                 alert('Pas assez de jetons!');
                 return;
             }
             
-            casinoJetons -= 15;
-            let num = Math.floor(Math.random() * 37);
-            document.getElementById('roulette-result').textContent = 'Numéro: ' + num;
+            balances.casino -= bet;
+            globalMoney -= bet;
             
-            if(num === 0) {
-                casinoJetons += 150;
-                alert('🎉 Numéro 0! +150 jetons!');
-            } else if(num % 2 === 0) {
-                casinoJetons += 30;
-                alert('🎉 Pair! +30 jetons!');
-            }
+            let number = Math.floor(Math.random() * 37);
+            let color = (number === 0) ? 'vert' : (number % 2 === 0) ? 'noir' : 'rouge';
             
-            updateCasino();
+            // Animation de la roue
+            let wheel = document.getElementById('rouletteWheel');
+            wheel.style.transform = `rotate(${Math.random() * 360 + 720}deg)`;
+            
+            setTimeout(() => {
+                let win = 0;
+                let message = '';
+                
+                if(choice === 'rouge' && color === 'rouge' ||
+                   choice === 'noir' && color === 'noir' ||
+                   choice === 'pair' && number % 2 === 0 && number !== 0 ||
+                   choice === 'impair' && number % 2 === 1) {
+                    win = bet * 2;
+                } else if(choice === '0' && number === 0) {
+                    win = bet * 35;
+                }
+                
+                if(win > 0) {
+                    balances.casino += win;
+                    globalMoney += win;
+                    casinoHistory.unshift(`🎡 Gagné $${win} à la roulette (numéro ${number} ${color})!`);
+                } else {
+                    casinoHistory.unshift(`🎡 Perdu $${bet} à la roulette (numéro ${number} ${color})`);
+                }
+                
+                updateCasinoHistory();
+                updateBalances();
+            }, 3000);
         }
 
-        function updateCasino() {
-            document.getElementById('casino-balance').innerHTML = `Jetons: ${casinoJetons}`;
+        function updateCasinoHistory() {
+            const historyDiv = document.getElementById('casinoHistory');
+            historyDiv.innerHTML = '<h3>📜 Derniers jeux</h3>' + 
+                casinoHistory.slice(0, 10).map(h => `<p>${h}</p>`).join('');
         }
 
-        // Mise à jour des prix crypto toutes les 10 secondes
-        setInterval(() => {
-            prices.btc = prices.btc * (1 + (Math.random() - 0.5) * 0.1);
-            prices.eth = prices.eth * (1 + (Math.random() - 0.5) * 0.1);
-            prices.ada = prices.ada * (1 + (Math.random() - 0.5) * 0.1);
-            
-            document.getElementById('btc-price').textContent = prices.btc.toFixed(0) + '$';
-            document.getElementById('eth-price').textContent = prices.eth.toFixed(0) + '$';
-            document.getElementById('ada-price').textContent = prices.ada.toFixed(2) + '$';
-            
-            updatePortfolio();
-        }, 10000);
-    </script>
-</body>
-</html>
+        // ========== INITIALISATION
