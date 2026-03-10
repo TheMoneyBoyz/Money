@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎴 PSA Grading - Crypto & Pokémon</title>
+    <title>Pokémon Boosters - Collection TCGPocket</title>
     <style>
         * {
             margin: 0;
@@ -13,961 +13,743 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            min-height: 100vh;
-            color: white;
-        }
-
-        /* ========== LOGIN PAGE ========== */
-        .login-page {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
 
-        .login-container {
+        /* Header avec navigation */
+        .header {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            padding: 50px;
-            width: 400px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            text-align: center;
-            border: 3px solid gold;
-        }
-
-        .login-container h1 {
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-        }
-
-        .login-container h1 span {
-            background: linear-gradient(135deg, gold, orange);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 1.1em;
-        }
-
-        .login-input:focus {
-            border-color: gold;
-            outline: none;
-        }
-
-        .login-btn {
-            background: linear-gradient(135deg, gold, orange);
-            color: black;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 20px 0;
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .login-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 20px gold;
-        }
-
-        .demo-account {
-            background: #f0f0f0;
-            padding: 15px;
-            border-radius: 10px;
-            color: #333;
-            font-size: 0.9em;
-        }
-
-        /* ========== MAIN APP ========== */
-        .main-app {
-            display: none;
-        }
-
-        .main-app.active {
-            display: block;
-        }
-
-        /* Navigation */
-        .navbar {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
             padding: 1rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid gold;
+            z-index: 100;
         }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
+        .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8em;
+            font-size: 1.8rem;
             font-weight: bold;
-            background: linear-gradient(135deg, gold, orange);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            padding: 10px 25px;
-            border-radius: 30px;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-            border: 2px solid transparent;
         }
 
-        .nav-link:hover {
-            border-color: gold;
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
         }
 
-        .nav-link.active {
-            background: gold;
-            color: black;
+        .nav-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
         }
 
-        .wallet {
-            background: linear-gradient(135deg, #1a2a3a, #0f1a24);
-            padding: 12px 25px;
-            border-radius: 30px;
-            border: 2px solid gold;
-            font-weight: bold;
-            color: gold;
-            font-size: 1.2em;
+        .nav-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
         }
 
-        /* Sections */
-        .section {
-            display: none;
-            padding: 30px;
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Conteneur principal */
+        .container {
             max-width: 1400px;
-            margin: 0 auto;
+            margin: 2rem auto;
+            padding: 0 2rem;
         }
 
-        .section.active {
+        /* Section Packs */
+        .packs-section {
             display: block;
         }
 
-        /* ========== SECTION CRYPTO ========== */
-        .crypto-section {
-            background: linear-gradient(135deg, #1a2a3a, #0f1a24);
-            border-radius: 30px;
-            padding: 30px;
-            margin-top: 20px;
+        .packs-section.hidden {
+            display: none;
         }
 
-        .crypto-header {
+        .series-selector {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            justify-content: center;
         }
 
-        .crypto-balance {
-            background: #2a3a4a;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1.5em;
-            border: 3px solid #00ff88;
-        }
-
-        .chart-container {
-            background: #1e2a3a;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            height: 400px;
-            border: 3px solid #00ff88;
-        }
-
-        .crypto-info {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .crypto-stats {
-            background: #1e2a3a;
-            border-radius: 20px;
-            padding: 20px;
-        }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px solid #2a3a4a;
-        }
-
-        .stat-row:last-child {
-            border-bottom: none;
-        }
-
-        .stat-label {
-            color: #8a8f9f;
-        }
-
-        .stat-value {
-            font-weight: bold;
-            color: #00ff88;
-        }
-
-        .trade-panel {
-            background: #1e2a3a;
-            border-radius: 20px;
-            padding: 20px;
-        }
-
-        .current-price {
-            font-size: 2.5em;
-            color: #00ff88;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .price-change {
-            text-align: center;
-            font-size: 1.2em;
-            margin: 10px 0;
-        }
-
-        .price-change.positive { color: #00ff88; }
-        .price-change.negative { color: #ff3366; }
-
-        .trade-input {
-            width: 100%;
-            padding: 15px;
-            margin: 15px 0;
-            background: #2a3a4a;
-            border: 2px solid #00ff88;
-            border-radius: 10px;
-            color: white;
-            font-size: 1.2em;
-        }
-
-        .trade-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .buy-btn, .sell-btn {
-            flex: 1;
-            padding: 15px;
+        .series-btn {
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 10px;
-            font-weight: bold;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 1.2em;
+            transition: all 0.3s ease;
+            background: white;
+            color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .buy-btn {
-            background: #00ff88;
-            color: black;
-        }
-
-        .sell-btn {
-            background: #ff3366;
+        .series-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
+            transform: scale(1.05);
         }
 
-        .position-info {
-            margin-top: 20px;
-            padding: 15px;
-            background: #2a3a4a;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        /* ========== SECTION POKÉMON ========== */
-        .pokemon-section {
-            background: linear-gradient(135deg, #ff3366, #ff6b6b);
-            border-radius: 30px;
-            padding: 30px;
-            margin-top: 20px;
-        }
-
-        .boosters-grid {
+        .packs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .booster-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 3px solid gold;
-        }
-
-        .booster-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(255,215,0,0.3);
-        }
-
-        .booster-151 { background: linear-gradient(135deg, #ff4d4d, #cc0000); }
-        .booster-xy { background: linear-gradient(135deg, #4d79ff, #002699); }
-        .booster-mega { background: linear-gradient(135deg, #ff9933, #cc5200); }
-        .booster-ascended { background: linear-gradient(135deg, #9933ff, #4d0099); }
-
-        .booster-icon {
-            font-size: 4em;
-            margin-bottom: 10px;
-        }
-
-        .booster-price {
-            background: rgba(0,0,0,0.3);
-            padding: 8px;
-            border-radius: 20px;
-            margin-top: 10px;
-            font-weight: bold;
-            border: 2px solid gold;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .pokemon-card {
+        .pack-card {
             background: white;
             border-radius: 20px;
-            padding: 20px;
-            color: black;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             position: relative;
-            transition: all 0.3s;
-            border: 4px solid gold;
+            overflow: hidden;
         }
 
-        .pokemon-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .psa-badge {
+        .pack-card::before {
+            content: '';
             position: absolute;
-            top: -15px;
-            right: -15px;
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #1a2a3a, #0f1a24);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: gold;
-            font-weight: bold;
-            border: 3px solid gold;
-            z-index: 10;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #ffd700, #ffa500, #ff8c00);
         }
 
-        .psa-grade {
-            font-size: 1.8em;
-            line-height: 1;
+        .pack-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .pack-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .pack-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .pack-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .pack-price {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .pack-count {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        /* Animation d'ouverture de pack */
+        .pack-opening {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .pack-opening.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .opening-animation {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 3rem;
+            border-radius: 30px;
+            text-align: center;
+            color: white;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .pack-opening.active .opening-animation {
+            transform: scale(1);
+        }
+
+        .opening-cards {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .opening-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            animation: cardReveal 0.5s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes cardReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-opening {
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            background: white;
+            border: none;
+            border-radius: 30px;
+            color: #667eea;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-opening:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Section Collection */
+        .collection-section {
+            display: none;
+        }
+
+        .collection-section.active {
+            display: block;
+        }
+
+        .collection-filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            color: #333;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .collection-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .collection-card.rare {
+            border: 3px solid gold;
+        }
+
+        .card-rarity {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            background: #667eea;
+            color: white;
         }
 
         .card-image {
             width: 100%;
-            height: 200px;
-            object-fit: contain;
-            margin-bottom: 15px;
-        }
-
-        .grade-details {
-            background: #f5f5f5;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .grade-category {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .card-value {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #2d9cdb;
-            margin: 10px 0;
-        }
-
-        .action-btn {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: none;
+            height: 150px;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
             border-radius: 10px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .card-name {
             font-weight: bold;
-            cursor: pointer;
+            margin-bottom: 0.3rem;
         }
 
-        .grade-btn {
-            background: linear-gradient(135deg, gold, orange);
-            color: black;
+        .card-series {
+            color: #666;
+            font-size: 0.8rem;
         }
 
-        .sell-btn {
-            background: #ff3366;
+        .card-count {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            background: #28a745;
             color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
         }
 
-        /* Animation */
-        .opening-animation {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.95);
-            padding: 40px;
-            border-radius: 30px;
-            z-index: 2000;
-            display: none;
+        /* Statistiques */
+        .stats-bar {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .stat-item {
             text-align: center;
-            border: 5px solid gold;
         }
 
-        .opening-animation.active {
-            display: block;
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .stat-label {
+            color: #666;
         }
 
-        .spin {
-            animation: spin 1s infinite;
+        /* Loading */
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            margin: 2rem 0;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <!-- PAGE DE LOGIN -->
-    <div class="login-page" id="loginPage">
-        <div class="login-container">
-            <h1>🎴 <span>PSA Grading</span></h1>
-            <h2 style="color:#333; margin-bottom:20px;">Connexion</h2>
-            
-            <input type="text" id="username" class="login-input" placeholder="Nom d'utilisateur" value="Collectionneur">
-            <input type="password" id="password" class="login-input" placeholder="Mot de passe" value="pokemon123">
-            
-            <button class="login-btn" onclick="login()">Se connecter</button>
-            
-            <div class="demo-account">
-                <strong>Compte démo:</strong><br>
-                Utilisateur: Collectionneur<br>
-                Mot de passe: pokemon123
+    <div class="header">
+        <div class="nav">
+            <div class="logo" onclick="switchSection('packs')">Pokémon TCGPocket</div>
+            <div class="nav-buttons">
+                <button class="nav-btn active" onclick="switchSection('packs')">Boosters</button>
+                <button class="nav-btn" onclick="switchSection('collection')">Ma Collection</button>
             </div>
         </div>
     </div>
 
-    <!-- APPLICATION PRINCIPALE -->
-    <div class="main-app" id="mainApp">
-        <!-- Navigation -->
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="logo">
-                    <span>🎴</span> PSA GRADING
-                </div>
-                <div class="nav-links">
-                    <a class="nav-link active" onclick="showSection('crypto')">📈 Crypto</a>
-                    <a class="nav-link" onclick="showSection('pokemon')">🎴 Pokémon</a>
-                </div>
-                <div class="wallet" id="wallet">💰 $1,000</div>
+    <!-- Section Packs -->
+    <div class="container packs-section" id="packsSection">
+        <div class="series-selector">
+            <button class="series-btn active" onclick="filterSeries('all')">Toutes les séries</button>
+            <button class="series-btn" onclick="filterSeries('151')">151</button>
+            <button class="series-btn" onclick="filterSeries('ecarlate')">Écarlate et Violet</button>
+            <button class="series-btn" onclick="filterSeries('evolving')">Évolutions célestes</button>
+            <button class="series-btn" onclick="filterSeries('transendants')">Héros transendants</button>
+            <button class="series-btn" onclick="filterSeries('gx')">GX Ultra</button>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" id="packCount">10</div>
+                <div class="stat-label">Boosters disponibles</div>
             </div>
-        </nav>
-
-        <!-- SECTION CRYPTO -->
-        <section id="crypto-section" class="section active">
-            <div class="crypto-section">
-                <div class="crypto-header">
-                    <h1 style="font-size:2.5em;">📈 Bitcoin Trading</h1>
-                    <div class="crypto-balance" id="cryptoBalance">$1,000</div>
-                </div>
-
-                <div class="chart-container">
-                    <canvas id="bitcoinChart"></canvas>
-                </div>
-
-                <div class="crypto-info">
-                    <div class="crypto-stats">
-                        <h3 style="margin-bottom:20px;">Statistiques en direct</h3>
-                        <div class="stat-row">
-                            <span class="stat-label">Prix actuel</span>
-                            <span class="stat-value" id="currentPrice">$45,000</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Variation 24h</span>
-                            <span class="stat-value" id="dailyChange">+2.5%</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Volume 24h</span>
-                            <span class="stat-value">$28.5B</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Plus haut 24h</span>
-                            <span class="stat-value" id="high24h">$46,200</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Plus bas 24h</span>
-                            <span class="stat-value" id="low24h">$44,800</span>
-                        </div>
-                    </div>
-
-                    <div class="trade-panel">
-                        <h3 style="margin-bottom:20px;">Trader Bitcoin</h3>
-                        <div class="current-price" id="tradePrice">$45,000</div>
-                        <div class="price-change positive" id="tradeChange">+2.5%</div>
-                        
-                        <input type="number" id="tradeAmount" class="trade-input" placeholder="Montant en USD" value="100" min="1">
-                        
-                        <div class="trade-buttons">
-                            <button class="buy-btn" onclick="buyBitcoin()">Acheter BTC</button>
-                            <button class="sell-btn" onclick="sellBitcoin()">Vendre BTC</button>
-                        </div>
-
-                        <div class="position-info" id="positionInfo">
-                            <strong>Position actuelle:</strong><br>
-                            <span id="btcBalance">0 BTC</span> ( $0 )
-                        </div>
-                    </div>
-                </div>
+            <div class="stat-item">
+                <div class="stat-value" id="totalCards">0</div>
+                <div class="stat-label">Cartes collectionnées</div>
             </div>
-        </section>
-
-        <!-- SECTION POKÉMON -->
-        <section id="pokemon-section" class="section">
-            <div class="pokemon-section">
-                <h1 style="font-size:2.5em; text-align:center;">🎴 Boosters Pokémon</h1>
-
-                <div class="boosters-grid">
-                    <div class="booster-card booster-151" onclick="openBooster('151')">
-                        <div class="booster-icon">🔴</div>
-                        <h3>Pokémon 151</h3>
-                        <p>Collection Kanto</p>
-                        <div class="booster-price">$100</div>
-                    </div>
-                    <div class="booster-card booster-xy" onclick="openBooster('xy')">
-                        <div class="booster-icon">💎</div>
-                        <h3>XY Evolutions</h3>
-                        <p>Méga Évolutions</p>
-                        <div class="booster-price">$150</div>
-                    </div>
-                    <div class="booster-card booster-mega" onclick="openBooster('mega')">
-                        <div class="booster-icon">⚡</div>
-                        <h3>Mega Collection</h3>
-                        <p>EX/GX/V</p>
-                        <div class="booster-price">$250</div>
-                    </div>
-                    <div class="booster-card booster-ascended" onclick="openBooster('ascended')">
-                        <div class="booster-icon">👑</div>
-                        <h3>Ascended Heroes</h3>
-                        <p>Légendaires</p>
-                        <div class="booster-price">$400</div>
-                    </div>
-                </div>
-
-                <h2 style="margin:40px 0 20px;">📋 Ma Collection Gradée</h2>
-                <div class="cards-grid" id="pokemonCollection"></div>
+            <div class="stat-item">
+                <div class="stat-value" id="uniqueCards">0</div>
+                <div class="stat-label">Cartes uniques</div>
             </div>
-        </section>
+        </div>
+
+        <div class="packs-grid" id="packsGrid">
+            <!-- Les packs seront générés ici par JavaScript -->
+        </div>
     </div>
 
-    <!-- Animation d'ouverture -->
-    <div class="opening-animation" id="openingAnimation">
-        <h2 style="color:gold;">✨ Ouverture du booster... ✨</h2>
-        <div style="font-size:5em;" class="spin">🎴</div>
+    <!-- Section Collection -->
+    <div class="container collection-section" id="collectionSection">
+        <div class="collection-filters">
+            <button class="filter-btn active" onclick="filterCollection('all')">Toutes</button>
+            <button class="filter-btn" onclick="filterCollection('commune')">Communes</button>
+            <button class="filter-btn" onclick="filterCollection('rare')">Rares</button>
+            <button class="filter-btn" onclick="filterCollection('ultra-rare')">Ultra Rares</button>
+            <button class="filter-btn" onclick="filterCollection('151')">Série 151</button>
+            <button class="filter-btn" onclick="filterCollection('ecarlate')">Écarlate et Violet</button>
+        </div>
+
+        <div class="collection-grid" id="collectionGrid">
+            <!-- Les cartes de la collection seront générées ici -->
+        </div>
+    </div>
+
+    <!-- Animation d'ouverture de pack -->
+    <div class="pack-opening" id="packOpening">
+        <div class="opening-animation">
+            <h2>Ouverture du booster...</h2>
+            <div class="opening-cards" id="openingCards">
+                <!-- Les cartes ouvertes apparaîtront ici -->
+            </div>
+            <button class="close-opening" onclick="closePackOpening()">Fermer</button>
+        </div>
     </div>
 
     <script>
-        // ========== VARIABLES GLOBALES ==========
-        let wallet = 1000;
-        let btcBalance = 0;
-        let btcPrice = 45000;
-        let priceHistory = [];
-        let chart;
-        let pokemonCards = [];
+        // Données des cartes par série
+        const cardDatabase = {
+            '151': [
+                { name: 'Bulbizarre', rarity: 'commune', image: '🌱' },
+                { name: 'Salamèche', rarity: 'commune', image: '🔥' },
+                { name: 'Carapuce', rarity: 'commune', image: '💧' },
+                { name: 'Pikachu', rarity: 'commune', image: '⚡' },
+                { name: 'Mewtwo', rarity: 'ultra-rare', image: '🔮' },
+                { name: 'Dracaufeu', rarity: 'rare', image: '🐉' },
+                { name: 'Tortank', rarity: 'rare', image: '🐢' },
+                { name: 'Florizarre', rarity: 'rare', image: '🌿' }
+            ],
+            'ecarlate': [
+                { name: 'Poussacha', rarity: 'commune', image: '😺' },
+                { name: 'Chochodile', rarity: 'commune', image: '🐊' },
+                { name: 'Coiffeton', rarity: 'commune', image: '🦆' },
+                { name: 'Miraidon', rarity: 'ultra-rare', image: '⚡' },
+                { name: 'Koraidon', rarity: 'ultra-rare', image: '🦎' }
+            ],
+            'evolving': [
+                { name: 'Évoli', rarity: 'commune', image: '🌈' },
+                { name: 'Pyroli', rarity: 'rare', image: '🔥' },
+                { name: 'Aquali', rarity: 'rare', image: '💧' },
+                { name: 'Voltali', rarity: 'rare', image: '⚡' },
+                { name: 'Mentali', rarity: 'rare', image: '🔮' }
+            ],
+            'transendants': [
+                { name: 'Dracofeu', rarity: 'ultra-rare', image: '🐲' },
+                { name: 'Lugia', rarity: 'ultra-rare', image: '🕊️' },
+                { name: 'Ho-Oh', rarity: 'ultra-rare', image: '🦚' },
+                { name: 'Rayquaza', rarity: 'rare', image: '🌪️' }
+            ],
+            'gx': [
+                { name: 'Pikachu GX', rarity: 'ultra-rare', image: '⚡⭐' },
+                { name: 'Dracaufeu GX', rarity: 'ultra-rare', image: '🔥⭐' },
+                { name: 'Mewtwo GX', rarity: 'ultra-rare', image: '🔮⭐' },
+                { name: 'Ectoplasma GX', rarity: 'rare', image: '👻' }
+            ]
+        };
 
-        // ========== LOGIN ==========
-        function login() {
-            let username = document.getElementById('username').value;
-            let password = document.getElementById('password').value;
-            
-            if(username && password) {
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('mainApp').classList.add('active');
-                initChart();
-                startPriceSimulation();
+        // Collection de l'utilisateur
+        let userCollection = [];
+        
+        // Boosters disponibles
+        let availablePacks = 10;
+
+        // Série actuellement sélectionnée
+        let currentSeries = 'all';
+
+        // Charger la collection depuis le localStorage
+        function loadCollection() {
+            const saved = localStorage.getItem('pokemonCollection');
+            if (saved) {
+                userCollection = JSON.parse(saved);
             }
+            updateStats();
         }
 
-        // ========== NAVIGATION ==========
-        function showSection(section) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        // Sauvegarder la collection
+        function saveCollection() {
+            localStorage.setItem('pokemonCollection', JSON.stringify(userCollection));
+            updateStats();
+        }
+
+        // Mettre à jour les statistiques
+        function updateStats() {
+            document.getElementById('packCount').textContent = availablePacks;
+            document.getElementById('totalCards').textContent = userCollection.length;
             
-            document.getElementById(section + '-section').classList.add('active');
-            event.target.classList.add('active');
+            const uniqueCards = new Set(userCollection.map(card => 
+                card.series + '-' + card.name
+            )).size;
+            document.getElementById('uniqueCards').textContent = uniqueCards;
         }
 
-        // ========== MISE À JOUR WALLET ==========
-        function updateWallet() {
-            document.getElementById('wallet').innerHTML = `💰 $${wallet.toLocaleString()}`;
-            document.getElementById('cryptoBalance').innerHTML = `$${wallet.toLocaleString()}`;
-            updatePosition();
-        }
-
-        function updatePosition() {
-            let btcValue = btcBalance * btcPrice;
-            document.getElementById('btcBalance').innerHTML = `${btcBalance.toFixed(4)} BTC`;
-            document.getElementById('positionInfo').innerHTML = `
-                <strong>Position actuelle:</strong><br>
-                <span>${btcBalance.toFixed(4)} BTC</span> ( $${btcValue.toLocaleString()} )
-            `;
-        }
-
-        // ========== CRYPTO ==========
-        function initChart() {
-            const ctx = document.getElementById('bitcoinChart').getContext('2d');
+        // Générer l'affichage des packs
+        function renderPacks() {
+            const packsGrid = document.getElementById('packsGrid');
+            packsGrid.innerHTML = '';
             
-            // Générer historique initial
-            for(let i = 0; i < 50; i++) {
-                priceHistory.push(45000 + (Math.random() - 0.5) * 2000);
-            }
-            
-            chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: Array(50).fill(''),
-                    datasets: [{
-                        label: 'Bitcoin (USD)',
-                        data: priceHistory,
-                        borderColor: '#00ff88',
-                        backgroundColor: '#00ff8820',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: {
-                            grid: { color: '#2a3a4a' },
-                            ticks: { color: '#8a8f9f' }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { display: false }
-                        }
-                    }
+            const series = currentSeries === 'all' 
+                ? Object.keys(cardDatabase) 
+                : [currentSeries];
+
+            series.forEach(seriesName => {
+                const packCount = 3; // Nombre de packs par série
+                const seriesDisplay = {
+                    '151': '151',
+                    'ecarlate': 'Écarlate et Violet',
+                    'evolving': 'Évolutions célestes',
+                    'transendants': 'Héros transendants',
+                    'gx': 'GX Ultra'
+                }[seriesName] || seriesName;
+
+                for (let i = 0; i < packCount; i++) {
+                    const pack = document.createElement('div');
+                    pack.className = `pack-card ${availablePacks <= 0 ? 'disabled' : ''}`;
+                    pack.onclick = () => openPack(seriesName);
+                    
+                    pack.innerHTML = `
+                        <div class="pack-icon">🎴</div>
+                        <div class="pack-name">Booster ${seriesDisplay}</div>
+                        <div class="pack-price">5 cartes</div>
+                        <div class="pack-count">${i + 1}/3</div>
+                    `;
+                    
+                    packsGrid.appendChild(pack);
                 }
             });
         }
 
-        function startPriceSimulation() {
-            setInterval(() => {
-                // Simulation de prix réaliste
-                let change = (Math.random() - 0.5) * 0.02; // -1% à +1%
-                btcPrice = btcPrice * (1 + change);
-                btcPrice = Math.max(btcPrice, 30000);
-                
-                // Mettre à jour l'historique
-                priceHistory.push(btcPrice);
-                if(priceHistory.length > 50) priceHistory.shift();
-                
-                // Mettre à jour le graphique
-                chart.data.datasets[0].data = priceHistory;
-                chart.update();
-                
-                // Mettre à jour l'affichage
-                updateCryptoDisplay();
-            }, 3000);
-        }
-
-        function updateCryptoDisplay() {
-            let change = ((btcPrice - priceHistory[priceHistory.length - 2]) / priceHistory[priceHistory.length - 2] * 100) || 0;
-            let changeClass = change >= 0 ? 'positive' : 'negative';
-            let changeSymbol = change >= 0 ? '+' : '';
-            
-            document.getElementById('currentPrice').innerHTML = `$${btcPrice.toLocaleString()}`;
-            document.getElementById('tradePrice').innerHTML = `$${btcPrice.toLocaleString()}`;
-            document.getElementById('dailyChange').innerHTML = `${changeSymbol}${change.toFixed(2)}%`;
-            document.getElementById('tradeChange').innerHTML = `${changeSymbol}${change.toFixed(2)}%`;
-            document.getElementById('tradeChange').className = `price-change ${changeClass}`;
-            
-            // High/Low
-            let high = Math.max(...priceHistory.slice(-24));
-            let low = Math.min(...priceHistory.slice(-24));
-            document.getElementById('high24h').innerHTML = `$${high.toLocaleString()}`;
-            document.getElementById('low24h').innerHTML = `$${low.toLocaleString()}`;
-            
-            updatePosition();
-        }
-
-        function buyBitcoin() {
-            let amount = parseFloat(document.getElementById('tradeAmount').value);
-            
-            if(amount > wallet) {
-                alert('Fonds insuffisants!');
+        // Ouvrir un pack
+        function openPack(series) {
+            if (availablePacks <= 0) {
+                alert('Plus de boosters disponibles ! Revenez plus tard !');
                 return;
             }
-            
-            let btcAmount = amount / btcPrice;
-            wallet -= amount;
-            btcBalance += btcAmount;
-            
-            updateWallet();
-        }
 
-        function sellBitcoin() {
-            let amount = parseFloat(document.getElementById('tradeAmount').value);
-            let btcToSell = amount / btcPrice;
+            availablePacks--;
             
-            if(btcToSell > btcBalance) {
-                alert('Pas assez de Bitcoin!');
-                return;
-            }
+            // Sélectionner 5 cartes aléatoires de la série
+            const seriesCards = cardDatabase[series];
+            const openedCards = [];
             
-            btcBalance -= btcToSell;
-            wallet += amount;
-            
-            updateWallet();
-        }
-
-        // ========== POKÉMON DATABASE ==========
-        const pokemonDatabase = [
-            { 
-                name: 'Pikachu', 
-                image: 'https://images.pokemontcg.io/base1/58.png',
-                set: 'Base Set',
-                collection: '151',
-                basePrice: 100
-            },
-            { 
-                name: 'Dracaufeu', 
-                image: 'https://images.pokemontcg.io/base1/4.png',
-                set: 'Base Set',
-                collection: '151',
-                basePrice: 500
-            },
-            { 
-                name: 'Mewtwo EX', 
-                image: 'https://images.pokemontcg.io/xy1/61.png',
-                set: 'XY',
-                collection: 'xy',
-                basePrice: 600
-            },
-            { 
-                name: 'Méga Dracaufeu X', 
-                image: 'https://images.pokemontcg.io/xy1/12.png',
-                set: 'XY',
-                collection: 'mega',
-                basePrice: 800
-            },
-            { 
-                name: 'Rayquaza V', 
-                image: 'https://images.pokemontcg.io/swsh7/110.png',
-                set: 'Evolving Skies',
-                collection: 'ascended',
-                basePrice: 1200
-            }
-        ];
-
-        // ========== SYSTÈME DE GRADING PSA ==========
-        function generatePSAGrade() {
-            let surface = Math.floor(Math.random() * 4) + 7;
-            let corners = Math.floor(Math.random() * 4) + 7;
-            let centering = Math.floor(Math.random() * 4) + 7;
-            let edges = Math.floor(Math.random() * 4) + 7;
-            
-            // Défauts aléatoires
-            if(Math.random() < 0.3) surface -= Math.floor(Math.random() * 3);
-            if(Math.random() < 0.25) corners -= Math.floor(Math.random() * 3);
-            if(Math.random() < 0.2) centering -= Math.floor(Math.random() * 2);
-            if(Math.random() < 0.3) edges -= Math.floor(Math.random() * 3);
-            
-            surface = Math.max(1, Math.min(10, surface));
-            corners = Math.max(1, Math.min(10, corners));
-            centering = Math.max(1, Math.min(10, centering));
-            edges = Math.max(1, Math.min(10, edges));
-            
-            let final = (surface + corners + centering + edges) / 4;
-            final = Math.round(final * 2) / 2;
-            
-            return { surface, corners, centering, edges, final };
-        }
-
-        // ========== OUVRIR BOOSTER ==========
-        function openBooster(collection) {
-            let price = 100;
-            if(collection === 'xy') price = 150;
-            if(collection === 'mega') price = 250;
-            if(collection === 'ascended') price = 400;
-            
-            if(wallet < price) {
-                alert("Pas assez d'argent! Gagnez de l'argent avec le trading Bitcoin.");
-                return;
-            }
-            
-            wallet -= price;
-            document.getElementById('openingAnimation').classList.add('active');
-            
-            setTimeout(() => {
-                document.getElementById('openingAnimation').classList.remove('active');
+            for (let i = 0; i < 5; i++) {
+                const randomCard = {...seriesCards[Math.floor(Math.random() * seriesCards.length)]};
+                randomCard.series = series;
+                randomCard.id = Date.now() + i + Math.random();
+                openedCards.push(randomCard);
                 
-                let collectionCards = pokemonDatabase.filter(c => c.collection === collection);
-                
-                for(let i = 0; i < 3; i++) {
-                    let randomCard = collectionCards[Math.floor(Math.random() * collectionCards.length)];
-                    let grade = generatePSAGrade();
-                    
-                    let multiplier = 0.3 + (grade.final * 0.2);
-                    if(grade.final >= 10) multiplier = 5;
-                    else if(grade.final >= 9) multiplier = 3;
-                    else if(grade.final >= 8) multiplier = 2;
-                    
-                    let value = Math.round(randomCard.basePrice * multiplier);
-                    
-                    pokemonCards.push({
-                        ...randomCard,
-                        grade,
-                        value,
-                        id: Date.now() + i
+                // Ajouter à la collection
+                userCollection.push(randomCard);
+            }
+
+            // Afficher l'animation
+            showPackOpening(openedCards);
+            
+            // Sauvegarder et mettre à jour
+            saveCollection();
+            renderPacks();
+            if (document.getElementById('collectionSection').classList.contains('active')) {
+                renderCollection();
+            }
+        }
+
+        // Afficher l'animation d'ouverture
+        function showPackOpening(cards) {
+            const opening = document.getElementById('packOpening');
+            const cardsContainer = document.getElementById('openingCards');
+            
+            cardsContainer.innerHTML = '';
+            cards.forEach((card, index) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'opening-card';
+                cardEl.style.animationDelay = `${index * 0.1}s`;
+                cardEl.innerHTML = `
+                    <div class="card-image" style="font-size: 2rem;">${card.image}</div>
+                    <div class="card-name">${card.name}</div>
+                    <div class="card-rarity">${card.rarity}</div>
+                `;
+                cardsContainer.appendChild(cardEl);
+            });
+            
+            opening.classList.add('active');
+        }
+
+        // Fermer l'animation
+        function closePackOpening() {
+            document.getElementById('packOpening').classList.remove('active');
+        }
+
+        // Filtrer les séries
+        function filterSeries(series) {
+            currentSeries = series;
+            
+            // Mettre à jour les boutons
+            document.querySelectorAll('.series-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderPacks();
+        }
+
+        // Changer de section
+        function switchSection(section) {
+            const packsSection = document.getElementById('packsSection');
+            const collectionSection = document.getElementById('collectionSection');
+            const navBtns = document.querySelectorAll('.nav-btn');
+            
+            if (section === 'packs') {
+                packsSection.style.display = 'block';
+                collectionSection.classList.remove('active');
+                navBtns[0].classList.add('active');
+                navBtns[1].classList.remove('active');
+                renderPacks();
+            } else {
+                packsSection.style.display = 'none';
+                collectionSection.classList.add('active');
+                navBtns[0].classList.remove('active');
+                navBtns[1].classList.add('active');
+                renderCollection();
+            }
+        }
+
+        // Afficher la collection
+        function renderCollection(filter = 'all') {
+            const collectionGrid = document.getElementById('collectionGrid');
+            collectionGrid.innerHTML = '';
+            
+            let filteredCards = [...userCollection];
+            
+            // Appliquer les filtres
+            if (filter !== 'all') {
+                if (filter === 'commune' || filter === 'rare' || filter === 'ultra-rare') {
+                    filteredCards = filteredCards.filter(card => card.rarity === filter);
+                } else {
+                    filteredCards = filteredCards.filter(card => card.series === filter);
+                }
+            }
+            
+            // Compter les doublons
+            const cardCounts = {};
+            filteredCards.forEach(card => {
+                const key = card.series + '-' + card.name;
+                cardCounts[key] = (cardCounts[key] || 0) + 1;
+            });
+            
+            // Afficher les cartes sans doublons
+            const uniqueCards = [];
+            const seen = new Set();
+            
+            filteredCards.forEach(card => {
+                const key = card.series + '-' + card.name;
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    uniqueCards.push({
+                        ...card,
+                        count: cardCounts[key]
                     });
                 }
-                
-                updatePokemonCollection();
-                updateWallet();
-            }, 2000);
-        }
-
-        // ========== REGRADING ==========
-        function regradeCard(index) {
-            if(wallet < 100) {
-                alert("Pas assez d'argent pour regrader! ($100)");
-                return;
+            });
+            
+            uniqueCards.sort((a, b) => a.name.localeCompare(b.name));
+            
+            uniqueCards.forEach(card => {
+                const cardEl = document.createElement('div');
+                cardEl.className = `collection-card ${card.rarity === 'ultra-rare' ? 'rare' : ''}`;
+                cardEl.innerHTML = `
+                    <div class="card-rarity">${card.rarity}</div>
+                    <div class="card-image">${card.image}</div>
+                    <div class="card-name">${card.name}</div>
+                    <div class="card-series">${card.series}</div>
+                    <div class="card-count">x${card.count}</div>
+                `;
+                collectionGrid.appendChild(cardEl);
+            });
+            
+            if (uniqueCards.length === 0) {
+                collectionGrid.innerHTML = '<div class="loading">Aucune carte dans cette catégorie</div>';
             }
-            
-            wallet -= 100;
-            let card = pokemonCards[index];
-            let newGrade = generatePSAGrade();
-            
-            if(card.grade.final < 8 && Math.random() < 0.2) {
-                newGrade.final = Math.min(10, card.grade.final + 0.5);
-            }
-            
-            card.grade = newGrade;
-            
-            let multiplier = 0.3 + (newGrade.final * 0.2);
-            if(newGrade.final >= 10) multiplier = 5;
-            else if(newGrade.final >= 9) multiplier = 3;
-            else if(newGrade.final >= 8) multiplier = 2;
-            
-            card.value = Math.round(card.basePrice * multiplier);
-            
-            updatePokemonCollection();
-            updateWallet();
         }
 
-        // ========== VENDRE CARTE ==========
-        function sellCard(index) {
-            let card = pokemonCards[index];
-            wallet += card.value;
-            pokemonCards.splice(index, 1);
-            updatePokemonCollection();
-            updateWallet();
+        // Filtrer la collection
+        function filterCollection(filter) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderCollection(filter);
         }
 
-        // ========== AFFICHER COLLECTION ==========
-        function updatePokemonCollection() {
-            const container = document.getElementById('pokemonCollection');
-            
-            if(pokemonCards.length === 0) {
-                container.innerHTML = '<div style="text-align:center; padding:40px;">Aucune carte pour le moment. Ouvrez des boosters!</div>';
-                return;
-            }
-            
-            container.innerHTML = pokemonCards.map((card, index) => `
-                <div class="pokemon-card">
-                    <div class="psa-badge">
-                        <span class="psa-grade">${card.grade.final}</span>
-                        <span>PSA</span>
-                    </div>
-                    <img class="card-image" src="${card.image}" alt="${card.name}">
-                    <h3>${card.name}</h3>
-                    <p>${card.set}</p>
-                    
-                    <div class="grade-details">
-                        <div class="grade-category">
-                            <span>Surface</span>
-                            <span>${card.grade.surface}/10</span>
-                        </div>
-                        <div class="grade-category">
-                            <span>Coins</span>
-                            <span>${card.grade.corners}/10</span>
-                        </div>
-                        <div class="grade-category">
-                            <span>Centrage</span>
-                            <span>${card.grade.centering}/10</span>
-                        </div>
-                        <div class="grade-category">
-                            <span>Bords</span>
-                            <span>${card.grade.edges}/10</span>
-                        </div>
-                    </div>
-                    
-                    <div class="card-value">💰 $${card.value.toLocaleString()}</div>
-                    
-                    <button class="action-btn grade-btn" onclick="regradeCard(${index})">Regrader ($100)</button>
-                    <button class="action-btn sell-btn" onclick="sellCard(${index})">Vendre</button>
-                </div>
-            `).join('');
-        }
-
-        // ========== INIT ==========
-        updateWallet();
+        // Initialisation
+        loadCollection();
+        renderPacks();
+        
+        // Ajouter des packs tous les jours (simulation)
+        setInterval(() => {
+            availablePacks = Math.min(availablePacks + 1, 10);
+            updateStats();
+            renderPacks();
+        }, 3600000); // 1 heure en millisecondes
     </script>
 </body>
 </html>
