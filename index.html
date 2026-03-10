@@ -43,7 +43,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
 
         .nav-buttons {
@@ -73,7 +72,6 @@
         .nav-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
-            background: rgba(255, 255, 255, 0.2);
         }
 
         .container {
@@ -82,14 +80,20 @@
             padding: 0 2rem;
         }
 
+        /* Sections */
         .packs-section {
             display: block;
         }
 
-        .packs-section.hidden {
+        .collection-section {
             display: none;
         }
 
+        .collection-section.active {
+            display: block;
+        }
+
+        /* Series Selector */
         .series-selector {
             display: flex;
             gap: 1rem;
@@ -109,7 +113,6 @@
             background: rgba(255, 255, 255, 0.1);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
         }
 
         .series-btn.active {
@@ -124,6 +127,37 @@
             transform: translateY(-2px);
         }
 
+        /* Stats */
+        .stats-bar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .stat-label {
+            color: white;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Packs Grid */
         .packs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -141,23 +175,11 @@
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
-            overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .pack-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #ffd700, #ffa500, #ff6b6b);
         }
 
         .pack-card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
@@ -173,7 +195,6 @@
             object-fit: contain;
             margin-bottom: 1rem;
             border-radius: 15px;
-            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
         }
 
         .pack-name {
@@ -181,7 +202,6 @@
             font-weight: bold;
             margin-bottom: 0.5rem;
             color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .pack-price {
@@ -202,6 +222,7 @@
             font-weight: bold;
         }
 
+        /* Pack Opening Animation */
         .pack-opening {
             position: fixed;
             top: 0;
@@ -216,7 +237,6 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
-            backdrop-filter: blur(10px);
         }
 
         .pack-opening.active {
@@ -256,12 +276,6 @@
             opacity: 0;
             transform: translateY(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .opening-card:hover {
-            transform: translateY(-5px) scale(1.05);
-            border-color: #ffd700;
         }
 
         @keyframes cardReveal {
@@ -297,14 +311,7 @@
             box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
         }
 
-        .collection-section {
-            display: none;
-        }
-
-        .collection-section.active {
-            display: block;
-        }
-
+        /* Collection Filters */
         .collection-filters {
             display: flex;
             gap: 1rem;
@@ -335,6 +342,7 @@
             transform: translateY(-2px);
         }
 
+        /* Collection Grid */
         .collection-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -350,14 +358,12 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             position: relative;
-            cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .collection-card:hover {
             transform: translateY(-5px) scale(1.02);
             border-color: #ffd700;
-            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
         }
 
         .collection-card.ultra-rare {
@@ -388,7 +394,6 @@
             object-fit: contain;
             border-radius: 10px;
             margin-bottom: 0.5rem;
-            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
         }
 
         .card-name {
@@ -415,63 +420,6 @@
             font-size: 0.8rem;
             font-weight: bold;
         }
-
-        .stats-bar {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ffd700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-
-        .stat-label {
-            color: white;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .loading {
-            text-align: center;
-            color: white;
-            font-size: 1.2rem;
-            margin: 2rem 0;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1e1e2f;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #ffd700, #ffa500);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #ffa500, #ff6b6b);
-        }
     </style>
 </head>
 <body>
@@ -485,8 +433,9 @@
         </div>
     </div>
 
+    <!-- Section Packs -->
     <div class="container packs-section" id="packsSection">
-        <div class="series-selector">
+        <div class="series-selector" id="seriesSelector">
             <button class="series-btn active" data-series="all">Toutes les séries</button>
             <button class="series-btn" data-series="151">151</button>
             <button class="series-btn" data-series="ecarlate">Écarlate et Violet</button>
@@ -515,8 +464,9 @@
         <div class="packs-grid" id="packsGrid"></div>
     </div>
 
+    <!-- Section Collection -->
     <div class="container collection-section" id="collectionSection">
-        <div class="collection-filters">
+        <div class="collection-filters" id="collectionFilters">
             <button class="filter-btn active" data-filter="all">Toutes</button>
             <button class="filter-btn" data-filter="commune">Communes</button>
             <button class="filter-btn" data-filter="rare">Rares</button>
@@ -529,6 +479,7 @@
         <div class="collection-grid" id="collectionGrid"></div>
     </div>
 
+    <!-- Animation d'ouverture -->
     <div class="pack-opening" id="packOpening">
         <div class="opening-animation">
             <h2 style="color: #ffd700;">Ouverture du booster...</h2>
@@ -538,64 +489,48 @@
     </div>
 
     <script>
-        // Base de données complète des cartes Pokémon avec images réelles
+        // Base de données des cartes
         const cardDatabase = {
             '151': [
-                { id: 1, name: 'Bulbizarre', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/1.png', number: '1/102', set: 'Base Set' },
-                { id: 2, name: 'Salamèche', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/4.png', number: '4/102', set: 'Base Set' },
-                { id: 3, name: 'Carapuce', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/7.png', number: '7/102', set: 'Base Set' },
-                { id: 4, name: 'Pikachu', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/58.png', number: '58/102', set: 'Base Set' },
-                { id: 5, name: 'Mewtwo', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/base1/10.png', number: '10/102', set: 'Base Set' },
-                { id: 6, name: 'Dracaufeu', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/base1/4_hires.png', number: '4/102', set: 'Base Set' },
-                { id: 7, name: 'Tortank', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/2.png', number: '2/102', set: 'Base Set' },
-                { id: 8, name: 'Florizarre', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/15.png', number: '15/102', set: 'Base Set' },
-                { id: 9, name: 'Rattata', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/61.png', number: '61/102', set: 'Base Set' },
-                { id: 10, name: 'Miaouss', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/53.png', number: '53/102', set: 'Base Set' }
+                { id: 1, name: 'Bulbizarre', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/1.png', set: 'Base Set' },
+                { id: 2, name: 'Salamèche', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/4.png', set: 'Base Set' },
+                { id: 3, name: 'Carapuce', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/7.png', set: 'Base Set' },
+                { id: 4, name: 'Pikachu', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/58.png', set: 'Base Set' },
+                { id: 5, name: 'Mewtwo', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/base1/10.png', set: 'Base Set' },
+                { id: 6, name: 'Dracaufeu', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/base1/4_hires.png', set: 'Base Set' }
             ],
             'ecarlate': [
-                { id: 101, name: 'Poussacha', rarity: 'commune', image: 'https://images.pokemontcg.io/sv1/1.png', number: '1/198', set: 'Scarlet & Violet' },
-                { id: 102, name: 'Chochodile', rarity: 'commune', image: 'https://images.pokemontcg.io/sv1/4.png', number: '4/198', set: 'Scarlet & Violet' },
-                { id: 103, name: 'Coiffeton', rarity: 'commune', image: 'https://images.pokemontcg.io/sv1/7.png', number: '7/198', set: 'Scarlet & Violet' },
-                { id: 104, name: 'Miraidon', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sv1/81.png', number: '81/198', set: 'Scarlet & Violet' },
-                { id: 105, name: 'Koraidon', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sv1/75.png', number: '75/198', set: 'Scarlet & Violet' },
-                { id: 106, name: 'Fulguris', rarity: 'rare', image: 'https://images.pokemontcg.io/sv1/69.png', number: '69/198', set: 'Scarlet & Violet' }
+                { id: 101, name: 'Poussacha', rarity: 'commune', image: 'https://images.pokemontcg.io/sv1/1.png', set: 'Scarlet & Violet' },
+                { id: 102, name: 'Chochodile', rarity: 'commune', image: 'https://images.pokemontcg.io/sv1/4.png', set: 'Scarlet & Violet' },
+                { id: 103, name: 'Coiffeton', rarity: 'commune', image: 'https://images.pokemontcg.io/sv1/7.png', set: 'Scarlet & Violet' },
+                { id: 104, name: 'Miraidon', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sv1/81.png', set: 'Scarlet & Violet' }
             ],
             'evolving': [
-                { id: 201, name: 'Évoli', rarity: 'commune', image: 'https://images.pokemontcg.io/sm5/89.png', number: '89/156', set: 'Ultra Prism' },
-                { id: 202, name: 'Pyroli', rarity: 'rare', image: 'https://images.pokemontcg.io/sm5/22.png', number: '22/156', set: 'Ultra Prism' },
-                { id: 203, name: 'Aquali', rarity: 'rare', image: 'https://images.pokemontcg.io/sm5/30.png', number: '30/156', set: 'Ultra Prism' },
-                { id: 204, name: 'Voltali', rarity: 'rare', image: 'https://images.pokemontcg.io/sm5/38.png', number: '38/156', set: 'Ultra Prism' },
-                { id: 205, name: 'Mentali', rarity: 'rare', image: 'https://images.pokemontcg.io/sm5/46.png', number: '46/156', set: 'Ultra Prism' },
-                { id: 206, name: 'Noctali', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm5/54.png', number: '54/156', set: 'Ultra Prism' }
+                { id: 201, name: 'Évoli', rarity: 'commune', image: 'https://images.pokemontcg.io/sm5/89.png', set: 'Ultra Prism' },
+                { id: 202, name: 'Pyroli', rarity: 'rare', image: 'https://images.pokemontcg.io/sm5/22.png', set: 'Ultra Prism' },
+                { id: 203, name: 'Aquali', rarity: 'rare', image: 'https://images.pokemontcg.io/sm5/30.png', set: 'Ultra Prism' },
+                { id: 204, name: 'Voltali', rarity: 'rare', image: 'https://images.pokemontcg.io/sm5/38.png', set: 'Ultra Prism' }
             ],
             'transendants': [
-                { id: 301, name: 'Dracofeu', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm9/4.png', number: '4/181', set: 'Team Up' },
-                { id: 302, name: 'Lugia', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm8/78.png', number: '78/214', set: 'Lost Thunder' },
-                { id: 303, name: 'Ho-Oh', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm8/20.png', number: '20/214', set: 'Lost Thunder' },
-                { id: 304, name: 'Rayquaza', rarity: 'rare', image: 'https://images.pokemontcg.io/sm7/106.png', number: '106/168', set: 'Celestial Storm' }
+                { id: 301, name: 'Dracofeu', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm9/4.png', set: 'Team Up' },
+                { id: 302, name: 'Lugia', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm8/78.png', set: 'Lost Thunder' },
+                { id: 303, name: 'Rayquaza', rarity: 'rare', image: 'https://images.pokemontcg.io/sm7/106.png', set: 'Celestial Storm' }
             ],
             'gx': [
-                { id: 401, name: 'Pikachu GX', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm1/27.png', number: '27/149', set: 'Sun & Moon' },
-                { id: 402, name: 'Dracaufeu GX', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm3/3.png', number: '3/147', set: 'Burning Shadows' },
-                { id: 403, name: 'Mewtwo GX', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm1/62.png', number: '62/149', set: 'Sun & Moon' },
-                { id: 404, name: 'Ectoplasma GX', rarity: 'rare', image: 'https://images.pokemontcg.io/sm2/34.png', number: '34/145', set: 'Guardians Rising' }
+                { id: 401, name: 'Pikachu GX', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm1/27.png', set: 'Sun & Moon' },
+                { id: 402, name: 'Dracaufeu GX', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm3/3.png', set: 'Burning Shadows' }
             ],
             'epee': [
-                { id: 501, name: 'Ouistempo', rarity: 'commune', image: 'https://images.pokemontcg.io/swsh1/1.png', number: '1/202', set: 'Sword & Shield' },
-                { id: 502, name: 'Flambino', rarity: 'commune', image: 'https://images.pokemontcg.io/swsh1/22.png', number: '22/202', set: 'Sword & Shield' },
-                { id: 503, name: 'Larméléon', rarity: 'commune', image: 'https://images.pokemontcg.io/swsh1/40.png', number: '40/202', set: 'Sword & Shield' },
-                { id: 504, name: 'Zacian V', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/swsh1/138.png', number: '138/202', set: 'Sword & Shield' },
-                { id: 505, name: 'Zamazenta V', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/swsh1/139.png', number: '139/202', set: 'Sword & Shield' }
+                { id: 501, name: 'Ouistempo', rarity: 'commune', image: 'https://images.pokemontcg.io/swsh1/1.png', set: 'Sword & Shield' },
+                { id: 502, name: 'Zacian V', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/swsh1/138.png', set: 'Sword & Shield' }
             ],
             'soleil': [
-                { id: 601, name: 'Brindibou', rarity: 'commune', image: 'https://images.pokemontcg.io/sm1/1.png', number: '1/149', set: 'Sun & Moon' },
-                { id: 602, name: 'Flamiaou', rarity: 'commune', image: 'https://images.pokemontcg.io/sm1/18.png', number: '18/149', set: 'Sun & Moon' },
-                { id: 603, name: 'Otaquin', rarity: 'commune', image: 'https://images.pokemontcg.io/sm1/34.png', number: '34/149', set: 'Sun & Moon' },
-                { id: 604, name: 'Solgaleo GX', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm1/89.png', number: '89/149', set: 'Sun & Moon' },
-                { id: 605, name: 'Lunala GX', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm1/60.png', number: '60/149', set: 'Sun & Moon' }
+                { id: 601, name: 'Brindibou', rarity: 'commune', image: 'https://images.pokemontcg.io/sm1/1.png', set: 'Sun & Moon' },
+                { id: 602, name: 'Solgaleo GX', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm1/89.png', set: 'Sun & Moon' }
             ]
         };
 
+        // Variables globales
         let userCollection = [];
         let availablePacks = 10;
         let currentSeries = 'all';
@@ -616,13 +551,13 @@
             updateStats();
         }
 
-        // Mettre à jour les statistiques
+        // Mettre à jour les stats
         function updateStats() {
             document.getElementById('packCount').textContent = availablePacks;
             document.getElementById('totalCards').textContent = userCollection.length;
             
             const uniqueCards = new Set(userCollection.map(card => 
-                card.series + '-' + card.id
+                card.series + '-' + card.originalId
             )).size;
             document.getElementById('uniqueCards').textContent = uniqueCards;
         }
@@ -632,40 +567,30 @@
             const packsGrid = document.getElementById('packsGrid');
             packsGrid.innerHTML = '';
             
-            const series = currentSeries === 'all' ? Object.keys(cardDatabase) : [currentSeries];
-
-            const seriesDisplayNames = {
-                '151': '151',
-                'ecarlate': 'Écarlate et Violet',
-                'evolving': 'Évolutions célestes',
-                'transendants': 'Héros transendants',
-                'gx': 'GX Ultra',
-                'epee': 'Épée et Bouclier',
-                'soleil': 'Soleil et Lune'
+            const seriesToShow = currentSeries === 'all' ? Object.keys(cardDatabase) : [currentSeries];
+            
+            const seriesNames = {
+                '151': '151', 'ecarlate': 'Écarlate et Violet', 'evolving': 'Évolutions célestes',
+                'transendants': 'Héros transendants', 'gx': 'GX Ultra', 'epee': 'Épée et Bouclier', 'soleil': 'Soleil et Lune'
             };
 
-            series.forEach(seriesName => {
+            seriesToShow.forEach(series => {
                 for (let i = 0; i < 3; i++) {
                     const pack = document.createElement('div');
                     pack.className = `pack-card ${availablePacks <= 0 ? 'disabled' : ''}`;
-                    pack.dataset.series = seriesName;
-                    pack.dataset.packIndex = i;
-                    
-                    let packImage = 'https://images.pokemontcg.io/base1/logo.png';
-                    if (seriesName === 'ecarlate') packImage = 'https://images.pokemontcg.io/sv1/logo.png';
-                    else if (seriesName === 'evolving') packImage = 'https://images.pokemontcg.io/sm5/logo.png';
+                    pack.setAttribute('data-series', series);
                     
                     pack.innerHTML = `
-                        <img src="${packImage}" alt="${seriesDisplayNames[seriesName]}" class="pack-image" onerror="this.src='https://via.placeholder.com/200x200?text=Pokemon+Pack'">
-                        <div class="pack-name">Booster ${seriesDisplayNames[seriesName]}</div>
+                        <img src="https://images.pokemontcg.io/base1/logo.png" class="pack-image" onerror="this.src='https://via.placeholder.com/200x200?text=Pack'">
+                        <div class="pack-name">Booster ${seriesNames[series]}</div>
                         <div class="pack-price">5 cartes</div>
                         <div class="pack-count">Pack ${i + 1}/3</div>
                     `;
                     
-                    pack.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        openPack(this.dataset.series);
-                    });
+                    pack.onclick = function() {
+                        const series = this.getAttribute('data-series');
+                        openPack(series);
+                    };
                     
                     packsGrid.appendChild(pack);
                 }
@@ -675,45 +600,36 @@
         // Ouvrir un pack
         function openPack(series) {
             if (availablePacks <= 0) {
-                alert('Plus de boosters disponibles ! Revenez plus tard !');
+                alert('Plus de boosters disponibles !');
                 return;
             }
 
             availablePacks--;
             
-            const seriesCards = cardDatabase[series];
+            const cards = cardDatabase[series];
             const openedCards = [];
             
             for (let i = 0; i < 5; i++) {
-                const randomIndex = Math.floor(Math.random() * seriesCards.length);
-                const randomCard = {...seriesCards[randomIndex]};
-                randomCard.series = series;
-                randomCard.id = randomCard.id + Date.now() + i;
-                openedCards.push(randomCard);
-                userCollection.push(randomCard);
+                const randomIndex = Math.floor(Math.random() * cards.length);
+                const card = {...cards[randomIndex]};
+                card.originalId = card.id;
+                card.id = card.id + Date.now() + i;
+                card.series = series;
+                openedCards.push(card);
+                userCollection.push(card);
             }
 
-            showPackOpening(openedCards);
-            saveCollection();
-            renderPacks();
-            
-            if (document.getElementById('collectionSection').classList.contains('active')) {
-                renderCollection();
-            }
-        }
-
-        // Afficher l'ouverture
-        function showPackOpening(cards) {
+            // Afficher l'animation
             const opening = document.getElementById('packOpening');
             const cardsContainer = document.getElementById('openingCards');
-            
             cardsContainer.innerHTML = '';
-            cards.forEach((card, index) => {
+            
+            openedCards.forEach((card, index) => {
                 const cardEl = document.createElement('div');
                 cardEl.className = 'opening-card';
                 cardEl.style.animationDelay = `${index * 0.1}s`;
                 cardEl.innerHTML = `
-                    <img src="${card.image}" alt="${card.name}" onerror="this.src='https://via.placeholder.com/200x280?text=${card.name}'">
+                    <img src="${card.image}" onerror="this.src='https://via.placeholder.com/200x280?text=${card.name}'">
                     <div class="card-name">${card.name}</div>
                     <div class="card-rarity">${card.rarity}</div>
                 `;
@@ -721,59 +637,121 @@
             });
             
             opening.classList.add('active');
+            
+            saveCollection();
+            renderPacks();
+            updateStats();
+            
+            if (document.getElementById('collectionSection').classList.contains('active')) {
+                renderCollection();
+            }
         }
 
         // Afficher la collection
         function renderCollection() {
-            const collectionGrid = document.getElementById('collectionGrid');
-            collectionGrid.innerHTML = '';
+            const grid = document.getElementById('collectionGrid');
+            grid.innerHTML = '';
             
-            let filteredCards = [...userCollection];
+            let filtered = [...userCollection];
             
             if (currentFilter !== 'all') {
                 if (['commune', 'rare', 'ultra-rare'].includes(currentFilter)) {
-                    filteredCards = filteredCards.filter(card => card.rarity === currentFilter);
+                    filtered = filtered.filter(c => c.rarity === currentFilter);
                 } else {
-                    filteredCards = filteredCards.filter(card => card.series === currentFilter);
+                    filtered = filtered.filter(c => c.series === currentFilter);
                 }
             }
             
-            const cardCounts = {};
-            filteredCards.forEach(card => {
-                const key = card.series + '-' + card.id;
-                cardCounts[key] = (cardCounts[key] || 0) + 1;
+            // Compter les doublons
+            const counts = {};
+            filtered.forEach(card => {
+                const key = card.series + '-' + card.originalId;
+                counts[key] = (counts[key] || 0) + 1;
             });
             
-            const uniqueCards = [];
+            // Cartes uniques
             const seen = new Set();
+            const unique = [];
             
-            filteredCards.forEach(card => {
-                const key = card.series + '-' + card.id;
+            filtered.forEach(card => {
+                const key = card.series + '-' + card.originalId;
                 if (!seen.has(key)) {
                     seen.add(key);
-                    uniqueCards.push({...card, count: cardCounts[key]});
+                    unique.push({...card, count: counts[key]});
                 }
             });
             
-            uniqueCards.sort((a, b) => a.name.localeCompare(b.name));
+            unique.sort((a, b) => a.name.localeCompare(b.name));
             
-            uniqueCards.forEach(card => {
-                const cardEl = document.createElement('div');
-                cardEl.className = `collection-card ${card.rarity}`;
-                cardEl.innerHTML = `
+            unique.forEach(card => {
+                const el = document.createElement('div');
+                el.className = `collection-card ${card.rarity}`;
+                el.innerHTML = `
                     <div class="card-rarity">${card.rarity}</div>
-                    <img src="${card.image}" alt="${card.name}" onerror="this.src='https://via.placeholder.com/200x280?text=${card.name}'">
+                    <img src="${card.image}" onerror="this.src='https://via.placeholder.com/200x280?text=${card.name}'">
                     <div class="card-name">${card.name}</div>
                     <div class="card-series">${card.series}</div>
                     <div class="card-count">x${card.count}</div>
                 `;
-                collectionGrid.appendChild(cardEl);
+                grid.appendChild(el);
             });
             
-            if (uniqueCards.length === 0) {
-                collectionGrid.innerHTML = '<div class="loading">Aucune carte dans cette catégorie</div>';
+            if (unique.length === 0) {
+                grid.innerHTML = '<div class="loading">Aucune carte dans cette catégorie</div>';
             }
         }
+
+        // Initialisation des événements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation
+            document.getElementById('logoBtn').onclick = function() {
+                switchSection('packs');
+            };
+            
+            document.getElementById('packsBtn').onclick = function() {
+                switchSection('packs');
+            };
+            
+            document.getElementById('collectionBtn').onclick = function() {
+                switchSection('collection');
+            };
+            
+            // Filtres des séries
+            document.querySelectorAll('#seriesSelector .series-btn').forEach(btn => {
+                btn.onclick = function() {
+                    document.querySelectorAll('#seriesSelector .series-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentSeries = this.getAttribute('data-series');
+                    renderPacks();
+                };
+            });
+            
+            // Filtres de collection
+            document.querySelectorAll('#collectionFilters .filter-btn').forEach(btn => {
+                btn.onclick = function() {
+                    document.querySelectorAll('#collectionFilters .filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.getAttribute('data-filter');
+                    renderCollection();
+                };
+            });
+            
+            // Fermer l'animation
+            document.getElementById('closeOpening').onclick = function() {
+                document.getElementById('packOpening').classList.remove('active');
+            };
+            
+            // Charger les données
+            loadCollection();
+            renderPacks();
+            
+            // Recharge des packs (toutes les heures)
+            setInterval(() => {
+                availablePacks = Math.min(availablePacks + 1, 10);
+                updateStats();
+                renderPacks();
+            }, 3600000);
+        });
 
         // Changer de section
         function switchSection(section) {
@@ -793,4 +771,9 @@
                 collectionSection.classList.add('active');
                 packsBtn.classList.remove('active');
                 collectionBtn.classList.add('active');
-                renderCollection
+                renderCollection();
+            }
+        }
+    </script>
+</body>
+</html>
