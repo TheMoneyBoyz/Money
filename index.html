@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Boosters - Collection TCGPocket</title>
+    <title>Pokémon TCGPocket - Collection de Cartes Réelles</title>
     <style>
         * {
             margin: 0;
@@ -13,18 +13,20 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e1e2f 0%, #2a2a40 100%);
             min-height: 100vh;
         }
 
-        /* Header avec navigation */
+        /* Header */
         .header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 1rem 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav {
@@ -38,10 +40,11 @@
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #ffd700, #ffa500);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
 
         .nav-buttons {
@@ -57,20 +60,21 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: white;
-            border: 2px solid #667eea;
-            color: #667eea;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .nav-btn.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            color: #1e1e2f;
             border: none;
         }
 
         .nav-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         /* Conteneur principal */
@@ -105,34 +109,43 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: white;
-            color: #333;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
         }
 
         .series-btn.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            color: #1e1e2f;
             transform: scale(1.05);
+            border: none;
+        }
+
+        .series-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .packs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
 
         .pack-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 2rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .pack-card::before {
@@ -141,13 +154,14 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 8px;
-            background: linear-gradient(90deg, #ffd700, #ffa500, #ff8c00);
+            height: 4px;
+            background: linear-gradient(90deg, #ffd700, #ffa500, #ff6b6b);
         }
 
         .pack-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
         .pack-card.disabled {
@@ -156,32 +170,39 @@
             pointer-events: none;
         }
 
-        .pack-icon {
-            font-size: 4rem;
+        .pack-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
             margin-bottom: 1rem;
+            border-radius: 15px;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
         }
 
         .pack-name {
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
-            color: #333;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .pack-price {
-            color: #666;
+            color: #ffd700;
             margin-bottom: 1rem;
+            font-size: 1.1rem;
         }
 
         .pack-count {
             position: absolute;
             top: 1rem;
             right: 1rem;
-            background: #667eea;
-            color: white;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            color: #1e1e2f;
             padding: 0.3rem 0.8rem;
             border-radius: 15px;
             font-size: 0.9rem;
+            font-weight: bold;
         }
 
         /* Animation d'ouverture de pack */
@@ -191,7 +212,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -199,6 +220,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .pack-opening.active {
@@ -207,13 +229,16 @@
         }
 
         .opening-animation {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #2a2a40, #1e1e2f);
             padding: 3rem;
             border-radius: 30px;
             text-align: center;
             color: white;
             transform: scale(0.8);
             transition: transform 0.3s ease;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            max-width: 1200px;
+            width: 90%;
         }
 
         .pack-opening.active .opening-animation {
@@ -223,17 +248,24 @@
         .opening-cards {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 1rem;
+            gap: 1.5rem;
             margin: 2rem 0;
         }
 
         .opening-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             padding: 1rem;
             animation: cardReveal 0.5s ease forwards;
             opacity: 0;
             transform: translateY(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .opening-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: #ffd700;
         }
 
         @keyframes cardReveal {
@@ -243,21 +275,30 @@
             }
         }
 
+        .opening-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
+
         .close-opening {
             padding: 1rem 3rem;
             font-size: 1.2rem;
-            background: white;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
             border: none;
             border-radius: 30px;
-            color: #667eea;
+            color: #1e1e2f;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-top: 1rem;
         }
 
         .close-opening:hover {
             transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
         }
 
         /* Section Collection */
@@ -284,39 +325,53 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: white;
-            color: #333;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .filter-btn.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            color: #1e1e2f;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .collection-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 1.5rem;
         }
 
         .collection-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 1rem;
             text-align: center;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             position: relative;
             cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .collection-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px) scale(1.02);
+            border-color: #ffd700;
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .collection-card.ultra-rare {
+            border: 3px solid gold;
+            box-shadow: 0 0 20px gold;
         }
 
         .collection-card.rare {
-            border: 3px solid gold;
+            border: 2px solid silver;
         }
 
         .card-rarity {
@@ -326,30 +381,32 @@
             font-size: 0.8rem;
             padding: 0.2rem 0.5rem;
             border-radius: 10px;
-            background: #667eea;
-            color: white;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            color: #1e1e2f;
+            font-weight: bold;
+            z-index: 2;
         }
 
-        .card-image {
+        .collection-card img {
             width: 100%;
-            height: 150px;
-            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            height: 200px;
+            object-fit: contain;
             border-radius: 10px;
             margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
         }
 
         .card-name {
             font-weight: bold;
             margin-bottom: 0.3rem;
+            color: white;
+            font-size: 1.1rem;
         }
 
         .card-series {
-            color: #666;
-            font-size: 0.8rem;
+            color: #ffd700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
 
         .card-count {
@@ -360,12 +417,14 @@
             color: white;
             padding: 0.2rem 0.5rem;
             border-radius: 10px;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
 
         /* Statistiques */
         .stats-bar {
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 1.5rem;
             margin-bottom: 2rem;
@@ -373,6 +432,7 @@
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .stat-item {
@@ -382,11 +442,14 @@
         .stat-value {
             font-size: 2rem;
             font-weight: bold;
-            color: #667eea;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
 
         .stat-label {
-            color: #666;
+            color: white;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
         /* Loading */
@@ -395,6 +458,27 @@
             color: white;
             font-size: 1.2rem;
             margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+
+        /* Scrollbar personnalisée */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e2f;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ffa500, #ff6b6b);
         }
     </style>
 </head>
@@ -418,6 +502,8 @@
             <button class="series-btn" onclick="filterSeries('evolving')">Évolutions célestes</button>
             <button class="series-btn" onclick="filterSeries('transendants')">Héros transendants</button>
             <button class="series-btn" onclick="filterSeries('gx')">GX Ultra</button>
+            <button class="series-btn" onclick="filterSeries('epée')">Épée et Bouclier</button>
+            <button class="series-btn" onclick="filterSeries('soleil')">Soleil et Lune</button>
         </div>
 
         <div class="stats-bar">
@@ -436,7 +522,7 @@
         </div>
 
         <div class="packs-grid" id="packsGrid">
-            <!-- Les packs seront générés ici par JavaScript -->
+            <!-- Les packs seront générés ici -->
         </div>
     </div>
 
@@ -449,6 +535,7 @@
             <button class="filter-btn" onclick="filterCollection('ultra-rare')">Ultra Rares</button>
             <button class="filter-btn" onclick="filterCollection('151')">Série 151</button>
             <button class="filter-btn" onclick="filterCollection('ecarlate')">Écarlate et Violet</button>
+            <button class="filter-btn" onclick="filterCollection('evolving')">Évolutions célestes</button>
         </div>
 
         <div class="collection-grid" id="collectionGrid">
@@ -459,7 +546,7 @@
     <!-- Animation d'ouverture de pack -->
     <div class="pack-opening" id="packOpening">
         <div class="opening-animation">
-            <h2>Ouverture du booster...</h2>
+            <h2 style="color: #ffd700;">Ouverture du booster...</h2>
             <div class="opening-cards" id="openingCards">
                 <!-- Les cartes ouvertes apparaîtront ici -->
             </div>
@@ -468,43 +555,341 @@
     </div>
 
     <script>
-        // Données des cartes par série
+        // Base de données complète des cartes Pokémon avec images réelles
         const cardDatabase = {
             '151': [
-                { name: 'Bulbizarre', rarity: 'commune', image: '🌱' },
-                { name: 'Salamèche', rarity: 'commune', image: '🔥' },
-                { name: 'Carapuce', rarity: 'commune', image: '💧' },
-                { name: 'Pikachu', rarity: 'commune', image: '⚡' },
-                { name: 'Mewtwo', rarity: 'ultra-rare', image: '🔮' },
-                { name: 'Dracaufeu', rarity: 'rare', image: '🐉' },
-                { name: 'Tortank', rarity: 'rare', image: '🐢' },
-                { name: 'Florizarre', rarity: 'rare', image: '🌿' }
+                { 
+                    id: 1,
+                    name: 'Bulbizarre', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/base1/1.png',
+                    number: '1/102',
+                    set: 'Base Set'
+                },
+                { 
+                    id: 2,
+                    name: 'Salamèche', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/base1/4.png',
+                    number: '4/102',
+                    set: 'Base Set'
+                },
+                { 
+                    id: 3,
+                    name: 'Carapuce', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/base1/7.png',
+                    number: '7/102',
+                    set: 'Base Set'
+                },
+                { 
+                    id: 4,
+                    name: 'Pikachu', 
+                    rarity: 'rare', 
+                    image: 'https://images.pokemontcg.io/base1/58.png',
+                    number: '58/102',
+                    set: 'Base Set'
+                },
+                { 
+                    id: 5,
+                    name: 'Mewtwo', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/base1/10.png',
+                    number: '10/102',
+                    set: 'Base Set'
+                },
+                { 
+                    id: 6,
+                    name: 'Dracaufeu', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/base1/4_hires.png',
+                    number: '4/102',
+                    set: 'Base Set'
+                },
+                { 
+                    id: 7,
+                    name: 'Tortank', 
+                    rarity: 'rare', 
+                    image: 'https://images.pokemontcg.io/base1/2.png',
+                    number: '2/102',
+                    set: 'Base Set'
+                },
+                { 
+                    id: 8,
+                    name: 'Florizarre', 
+                    rarity: 'rare', 
+                    image: 'https://images.pokemontcg.io/base1/15.png',
+                    number: '15/102',
+                    set: 'Base Set'
+                },
+                { 
+                    id: 9,
+                    name: 'Rattata', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/base1/61.png',
+                    number: '61/102',
+                    set: 'Base Set'
+                },
+                { 
+                    id: 10,
+                    name: 'Miaouss', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/base1/53.png',
+                    number: '53/102',
+                    set: 'Base Set'
+                }
             ],
             'ecarlate': [
-                { name: 'Poussacha', rarity: 'commune', image: '😺' },
-                { name: 'Chochodile', rarity: 'commune', image: '🐊' },
-                { name: 'Coiffeton', rarity: 'commune', image: '🦆' },
-                { name: 'Miraidon', rarity: 'ultra-rare', image: '⚡' },
-                { name: 'Koraidon', rarity: 'ultra-rare', image: '🦎' }
+                { 
+                    id: 101,
+                    name: 'Poussacha', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/sv1/1.png',
+                    number: '1/198',
+                    set: 'Scarlet & Violet'
+                },
+                { 
+                    id: 102,
+                    name: 'Chochodile', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/sv1/4.png',
+                    number: '4/198',
+                    set: 'Scarlet & Violet'
+                },
+                { 
+                    id: 103,
+                    name: 'Coiffeton', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/sv1/7.png',
+                    number: '7/198',
+                    set: 'Scarlet & Violet'
+                },
+                { 
+                    id: 104,
+                    name: 'Miraidon', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/sv1/81.png',
+                    number: '81/198',
+                    set: 'Scarlet & Violet'
+                },
+                { 
+                    id: 105,
+                    name: 'Koraidon', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/sv1/75.png',
+                    number: '75/198',
+                    set: 'Scarlet & Violet'
+                },
+                { 
+                    id: 106,
+                    name: 'Fulguris', 
+                    rarity: 'rare', 
+                    image: 'https://images.pokemontcg.io/sv1/69.png',
+                    number: '69/198',
+                    set: 'Scarlet & Violet'
+                }
             ],
             'evolving': [
-                { name: 'Évoli', rarity: 'commune', image: '🌈' },
-                { name: 'Pyroli', rarity: 'rare', image: '🔥' },
-                { name: 'Aquali', rarity: 'rare', image: '💧' },
-                { name: 'Voltali', rarity: 'rare', image: '⚡' },
-                { name: 'Mentali', rarity: 'rare', image: '🔮' }
+                { 
+                    id: 201,
+                    name: 'Évoli', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/sm5/89.png',
+                    number: '89/156',
+                    set: 'Ultra Prism'
+                },
+                { 
+                    id: 202,
+                    name: 'Pyroli', 
+                    rarity: 'rare', 
+                    image: 'https://images.pokemontcg.io/sm5/22.png',
+                    number: '22/156',
+                    set: 'Ultra Prism'
+                },
+                { 
+                    id: 203,
+                    name: 'Aquali', 
+                    rarity: 'rare', 
+                    image: 'https://images.pokemontcg.io/sm5/30.png',
+                    number: '30/156',
+                    set: 'Ultra Prism'
+                },
+                { 
+                    id: 204,
+                    name: 'Voltali', 
+                    rarity: 'rare', 
+                    image: 'https://images.pokemontcg.io/sm5/38.png',
+                    number: '38/156',
+                    set: 'Ultra Prism'
+                },
+                { 
+                    id: 205,
+                    name: 'Mentali', 
+                    rarity: 'rare', 
+                    image: 'https://images.pokemontcg.io/sm5/46.png',
+                    number: '46/156',
+                    set: 'Ultra Prism'
+                },
+                { 
+                    id: 206,
+                    name: 'Noctali', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/sm5/54.png',
+                    number: '54/156',
+                    set: 'Ultra Prism'
+                }
             ],
             'transendants': [
-                { name: 'Dracofeu', rarity: 'ultra-rare', image: '🐲' },
-                { name: 'Lugia', rarity: 'ultra-rare', image: '🕊️' },
-                { name: 'Ho-Oh', rarity: 'ultra-rare', image: '🦚' },
-                { name: 'Rayquaza', rarity: 'rare', image: '🌪️' }
+                { 
+                    id: 301,
+                    name: 'Dracofeu', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/sm9/4.png',
+                    number: '4/181',
+                    set: 'Team Up'
+                },
+                { 
+                    id: 302,
+                    name: 'Lugia', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/sm8/78.png',
+                    number: '78/214',
+                    set: 'Lost Thunder'
+                },
+                { 
+                    id: 303,
+                    name: 'Ho-Oh', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/sm8/20.png',
+                    number: '20/214',
+                    set: 'Lost Thunder'
+                },
+                { 
+                    id: 304,
+                    name: 'Rayquaza', 
+                    rarity: 'rare', 
+                    image: 'https://images.pokemontcg.io/sm7/106.png',
+                    number: '106/168',
+                    set: 'Celestial Storm'
+                }
             ],
             'gx': [
-                { name: 'Pikachu GX', rarity: 'ultra-rare', image: '⚡⭐' },
-                { name: 'Dracaufeu GX', rarity: 'ultra-rare', image: '🔥⭐' },
-                { name: 'Mewtwo GX', rarity: 'ultra-rare', image: '🔮⭐' },
-                { name: 'Ectoplasma GX', rarity: 'rare', image: '👻' }
+                { 
+                    id: 401,
+                    name: 'Pikachu GX', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/sm1/27.png',
+                    number: '27/149',
+                    set: 'Sun & Moon'
+                },
+                { 
+                    id: 402,
+                    name: 'Dracaufeu GX', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/sm3/3.png',
+                    number: '3/147',
+                    set: 'Burning Shadows'
+                },
+                { 
+                    id: 403,
+                    name: 'Mewtwo GX', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/sm1/62.png',
+                    number: '62/149',
+                    set: 'Sun & Moon'
+                },
+                { 
+                    id: 404,
+                    name: 'Ectoplasma GX', 
+                    rarity: 'rare', 
+                    image: 'https://images.pokemontcg.io/sm2/34.png',
+                    number: '34/145',
+                    set: 'Guardians Rising'
+                }
+            ],
+            'epée': [
+                { 
+                    id: 501,
+                    name: 'Ouistempo', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/swsh1/1.png',
+                    number: '1/202',
+                    set: 'Sword & Shield'
+                },
+                { 
+                    id: 502,
+                    name: 'Flambino', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/swsh1/22.png',
+                    number: '22/202',
+                    set: 'Sword & Shield'
+                },
+                { 
+                    id: 503,
+                    name: 'Larméléon', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/swsh1/40.png',
+                    number: '40/202',
+                    set: 'Sword & Shield'
+                },
+                { 
+                    id: 504,
+                    name: 'Zacian V', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/swsh1/138.png',
+                    number: '138/202',
+                    set: 'Sword & Shield'
+                },
+                { 
+                    id: 505,
+                    name: 'Zamazenta V', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/swsh1/139.png',
+                    number: '139/202',
+                    set: 'Sword & Shield'
+                }
+            ],
+            'soleil': [
+                { 
+                    id: 601,
+                    name: 'Brindibou', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/sm1/1.png',
+                    number: '1/149',
+                    set: 'Sun & Moon'
+                },
+                { 
+                    id: 602,
+                    name: 'Flamiaou', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/sm1/18.png',
+                    number: '18/149',
+                    set: 'Sun & Moon'
+                },
+                { 
+                    id: 603,
+                    name: 'Otaquin', 
+                    rarity: 'commune', 
+                    image: 'https://images.pokemontcg.io/sm1/34.png',
+                    number: '34/149',
+                    set: 'Sun & Moon'
+                },
+                { 
+                    id: 604,
+                    name: 'Solgaleo GX', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/sm1/89.png',
+                    number: '89/149',
+                    set: 'Sun & Moon'
+                },
+                { 
+                    id: 605,
+                    name: 'Lunala GX', 
+                    rarity: 'ultra-rare', 
+                    image: 'https://images.pokemontcg.io/sm1/60.png',
+                    number: '60/149',
+                    set: 'Sun & Moon'
+                }
             ]
         };
 
@@ -538,7 +923,7 @@
             document.getElementById('totalCards').textContent = userCollection.length;
             
             const uniqueCards = new Set(userCollection.map(card => 
-                card.series + '-' + card.name
+                card.series + '-' + card.id
             )).size;
             document.getElementById('uniqueCards').textContent = uniqueCards;
         }
@@ -552,26 +937,44 @@
                 ? Object.keys(cardDatabase) 
                 : [currentSeries];
 
-            series.forEach(seriesName => {
-                const packCount = 3; // Nombre de packs par série
-                const seriesDisplay = {
-                    '151': '151',
-                    'ecarlate': 'Écarlate et Violet',
-                    'evolving': 'Évolutions célestes',
-                    'transendants': 'Héros transendants',
-                    'gx': 'GX Ultra'
-                }[seriesName] || seriesName;
+            const seriesDisplayNames = {
+                '151': '151',
+                'ecarlate': 'Écarlate et Violet',
+                'evolving': 'Évolutions célestes',
+                'transendants': 'Héros transendants',
+                'gx': 'GX Ultra',
+                'epée': 'Épée et Bouclier',
+                'soleil': 'Soleil et Lune'
+            };
 
-                for (let i = 0; i < packCount; i++) {
+            series.forEach(seriesName => {
+                // 3 packs par série
+                for (let i = 0; i < 3; i++) {
                     const pack = document.createElement('div');
                     pack.className = `pack-card ${availablePacks <= 0 ? 'disabled' : ''}`;
                     pack.onclick = () => openPack(seriesName);
                     
+                    // Image du pack selon la série
+                    let packImage = '';
+                    switch(seriesName) {
+                        case '151':
+                            packImage = 'https://images.pokemontcg.io/base1/logo.png';
+                            break;
+                        case 'ecarlate':
+                            packImage = 'https://images.pokemontcg.io/sv1/logo.png';
+                            break;
+                        case 'evolving':
+                            packImage = 'https://images.pokemontcg.io/sm5/logo.png';
+                            break;
+                        default:
+                            packImage = 'https://images.pokemontcg.io/base1/logo.png';
+                    }
+                    
                     pack.innerHTML = `
-                        <div class="pack-icon">🎴</div>
-                        <div class="pack-name">Booster ${seriesDisplay}</div>
+                        <img src="${packImage}" alt="${seriesDisplayNames[seriesName]}" class="pack-image" onerror="this.src='https://via.placeholder.com/200x200?text=Pokemon+Pack'">
+                        <div class="pack-name">Booster ${seriesDisplayNames[seriesName]}</div>
                         <div class="pack-price">5 cartes</div>
-                        <div class="pack-count">${i + 1}/3</div>
+                        <div class="pack-count">Pack ${i + 1}/3</div>
                     `;
                     
                     packsGrid.appendChild(pack);
@@ -593,9 +996,10 @@
             const openedCards = [];
             
             for (let i = 0; i < 5; i++) {
-                const randomCard = {...seriesCards[Math.floor(Math.random() * seriesCards.length)]};
+                const randomIndex = Math.floor(Math.random() * seriesCards.length);
+                const randomCard = {...seriesCards[randomIndex]};
                 randomCard.series = series;
-                randomCard.id = Date.now() + i + Math.random();
+                randomCard.id = randomCard.id + Date.now() + i;
                 openedCards.push(randomCard);
                 
                 // Ajouter à la collection
@@ -624,132 +1028,4 @@
                 cardEl.className = 'opening-card';
                 cardEl.style.animationDelay = `${index * 0.1}s`;
                 cardEl.innerHTML = `
-                    <div class="card-image" style="font-size: 2rem;">${card.image}</div>
-                    <div class="card-name">${card.name}</div>
-                    <div class="card-rarity">${card.rarity}</div>
-                `;
-                cardsContainer.appendChild(cardEl);
-            });
-            
-            opening.classList.add('active');
-        }
-
-        // Fermer l'animation
-        function closePackOpening() {
-            document.getElementById('packOpening').classList.remove('active');
-        }
-
-        // Filtrer les séries
-        function filterSeries(series) {
-            currentSeries = series;
-            
-            // Mettre à jour les boutons
-            document.querySelectorAll('.series-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            renderPacks();
-        }
-
-        // Changer de section
-        function switchSection(section) {
-            const packsSection = document.getElementById('packsSection');
-            const collectionSection = document.getElementById('collectionSection');
-            const navBtns = document.querySelectorAll('.nav-btn');
-            
-            if (section === 'packs') {
-                packsSection.style.display = 'block';
-                collectionSection.classList.remove('active');
-                navBtns[0].classList.add('active');
-                navBtns[1].classList.remove('active');
-                renderPacks();
-            } else {
-                packsSection.style.display = 'none';
-                collectionSection.classList.add('active');
-                navBtns[0].classList.remove('active');
-                navBtns[1].classList.add('active');
-                renderCollection();
-            }
-        }
-
-        // Afficher la collection
-        function renderCollection(filter = 'all') {
-            const collectionGrid = document.getElementById('collectionGrid');
-            collectionGrid.innerHTML = '';
-            
-            let filteredCards = [...userCollection];
-            
-            // Appliquer les filtres
-            if (filter !== 'all') {
-                if (filter === 'commune' || filter === 'rare' || filter === 'ultra-rare') {
-                    filteredCards = filteredCards.filter(card => card.rarity === filter);
-                } else {
-                    filteredCards = filteredCards.filter(card => card.series === filter);
-                }
-            }
-            
-            // Compter les doublons
-            const cardCounts = {};
-            filteredCards.forEach(card => {
-                const key = card.series + '-' + card.name;
-                cardCounts[key] = (cardCounts[key] || 0) + 1;
-            });
-            
-            // Afficher les cartes sans doublons
-            const uniqueCards = [];
-            const seen = new Set();
-            
-            filteredCards.forEach(card => {
-                const key = card.series + '-' + card.name;
-                if (!seen.has(key)) {
-                    seen.add(key);
-                    uniqueCards.push({
-                        ...card,
-                        count: cardCounts[key]
-                    });
-                }
-            });
-            
-            uniqueCards.sort((a, b) => a.name.localeCompare(b.name));
-            
-            uniqueCards.forEach(card => {
-                const cardEl = document.createElement('div');
-                cardEl.className = `collection-card ${card.rarity === 'ultra-rare' ? 'rare' : ''}`;
-                cardEl.innerHTML = `
-                    <div class="card-rarity">${card.rarity}</div>
-                    <div class="card-image">${card.image}</div>
-                    <div class="card-name">${card.name}</div>
-                    <div class="card-series">${card.series}</div>
-                    <div class="card-count">x${card.count}</div>
-                `;
-                collectionGrid.appendChild(cardEl);
-            });
-            
-            if (uniqueCards.length === 0) {
-                collectionGrid.innerHTML = '<div class="loading">Aucune carte dans cette catégorie</div>';
-            }
-        }
-
-        // Filtrer la collection
-        function filterCollection(filter) {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            renderCollection(filter);
-        }
-
-        // Initialisation
-        loadCollection();
-        renderPacks();
-        
-        // Ajouter des packs tous les jours (simulation)
-        setInterval(() => {
-            availablePacks = Math.min(availablePacks + 1, 10);
-            updateStats();
-            renderPacks();
-        }, 3600000); // 1 heure en millisecondes
-    </script>
-</body>
-</html>
+                    <img src="${card.image}" alt="${card.name}" onerror="this.src='https://via.placeholder.com/200x280?text=${card.name
