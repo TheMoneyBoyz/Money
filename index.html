@@ -1,110 +1,123 @@
-import React, { useRef, useEffect, useState } from "react";
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Monster Catcher</title>
+<style>
+body{margin:0;background:#0f172a;color:white;font-family:sans-serif;text-align:center}
+canvas{background:#14532d;border:3px solid white;border-radius:12px;margin-top:10px}
+.controls{margin-top:10px}
+button{font-size:18px;padding:10px 16px;margin:6px;border-radius:10px;border:none;background:#2563eb;color:white}
+</style>
+</head>
+<body>
+<h1>Monster Catcher</h1>
+<p>Move and throw Pokéballs to capture monsters</p>
+<p>Captured: <span id="score">0</span></p>
 
-// Simple Pokémon‑style mini game rendered on canvas
-// Move with arrow keys, find creatures, press space to capture
+<canvas id="game" width="800" height="450"></canvas>
 
-export default function PokemonStyleGame() {
-  const canvasRef = useRef(null);
-  const [captures, setCaptures] = useState(0);
+<div class="controls">
+<button onclick="move('up')">⬆️</button><br>
+<button onclick="move('left')">⬅️</button>
+<button onclick="throwBall()">⚪ Pokéball</button>
+<button onclick="move('right')">➡️</button><br>
+<button onclick="move('down')">⬇️</button>
+</div>
 
-  const player = useRef({ x: 200, y: 200, size: 20 });
-  const creatures = useRef(
-    Array.from({ length: 6 }).map(() => ({
-      x: Math.random() * 760,
-      y: Math.random() * 460,
-      size: 18,
-      captured: false
-    }))
-  );
+<script>
+const canvas = document.getElementById('game')
+const ctx = canvas.getContext('2d')
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+let player = {x:400,y:220,size:20}
+let pokeballs = []
+let captured = 0
 
-    const keys = {};
-
-    const keyDown = (e) => {
-      keys[e.key] = true;
-
-      if (e.key === " ") {
-        creatures.current.forEach((c) => {
-          const dx = c.x - player.current.x;
-          const dy = c.y - player.current.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 40 && !c.captured) {
-            c.captured = true;
-            setCaptures((v) => v + 1);
-          }
-        });
-      }
-    };
-
-    const keyUp = (e) => (keys[e.key] = false);
-
-    window.addEventListener("keydown", keyDown);
-    window.addEventListener("keyup", keyUp);
-
-    const update = () => {
-      if (keys["ArrowUp"]) player.current.y -= 3;
-      if (keys["ArrowDown"]) player.current.y += 3;
-      if (keys["ArrowLeft"]) player.current.x -= 3;
-      if (keys["ArrowRight"]) player.current.x += 3;
-    };
-
-    const draw = () => {
-      ctx.fillStyle = "#1e293b";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Grass pattern
-      for (let i = 0; i < 80; i++) {
-        ctx.fillStyle = "#16a34a";
-        ctx.fillRect(Math.random() * 800, Math.random() * 500, 3, 3);
-      }
-
-      // Player
-      ctx.fillStyle = "#3b82f6";
-      ctx.beginPath();
-      ctx.arc(player.current.x, player.current.y, player.current.size, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Creatures
-      creatures.current.forEach((c) => {
-        if (!c.captured) {
-          ctx.fillStyle = "#f59e0b";
-          ctx.beginPath();
-          ctx.arc(c.x, c.y, c.size, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      });
-    };
-
-    const loop = () => {
-      update();
-      draw();
-      requestAnimationFrame(loop);
-    };
-
-    loop();
-
-    return () => {
-      window.removeEventListener("keydown", keyDown);
-      window.removeEventListener("keyup", keyUp);
-    };
-  }, []);
-
-  return (
-    <div className="w-full h-screen bg-slate-900 flex flex-col items-center justify-center text-white">
-      <h1 className="text-3xl font-bold mb-2">Monster Catcher</h1>
-      <p className="mb-3">Move with arrows • Press SPACE to capture</p>
-      <p className="mb-4">Captured: {captures}</p>
-
-      <canvas
-        ref={canvasRef}
-        width={800}
-        height={500}
-        className="border border-white rounded-2xl shadow-2xl"
-      />
-    </div>
-  );
+let monsters = []
+for(let i=0;i<6;i++){
+monsters.push({
+x:Math.random()*760+20,
+y:Math.random()*410+20,
+size:18,
+hp:3,
+alive:true
+})
 }
+
+function move(dir){
+const speed=20
+if(dir==='up')player.y-=speed
+if(dir==='down')player.y+=speed
+if(dir==='left')player.x-=speed
+if(dir==='right')player.x+=speed
+}
+
+function throwBall(){
+pokeballs.push({x:player.x,y:player.y,vx:4,vy:0})
+}
+
+function update(){
+
+pokeballs.forEach(ball=>{
+ball.x+=ball.vx
+})
+
+monsters.forEach(m=>{
+if(!m.alive)return
+
+pokeballs.forEach(ball=>{
+let dx=m.x-ball.x
+let dy=m.y-ball.y
+let dist=Math.sqrt(dx*dx+dy*dy)
+
+if(dist<20){
+m.hp--
+ball.x=2000
+
+if(m.hp<=0){
+m.alive=false
+captured++
+document.getElementById('score').innerText=captured
+}
+}
+})
+})
+}
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+// player
+ctx.fillStyle='blue'
+ctx.beginPath()
+ctx.arc(player.x,player.y,player.size,0,Math.PI*2)
+ctx.fill()
+
+// monsters
+monsters.forEach(m=>{
+if(!m.alive)return
+ctx.fillStyle='orange'
+ctx.beginPath()
+ctx.arc(m.x,m.y,m.size,0,Math.PI*2)
+ctx.fill()
+})
+
+// pokeballs
+pokeballs.forEach(ball=>{
+ctx.fillStyle='white'
+ctx.beginPath()
+ctx.arc(ball.x,ball.y,6,0,Math.PI*2)
+ctx.fill()
+})
+}
+
+function loop(){
+update()
+draw()
+requestAnimationFrame(loop)
+}
+
+loop()
+</script>
+</body>
+</html>
