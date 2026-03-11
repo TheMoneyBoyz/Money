@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon TCGPocket - Collection de Cartes Réelles</title>
+    <title>Pokémon TCGPocket - Collection Complète</title>
     <style>
         * {
             margin: 0;
@@ -13,19 +13,18 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1e1e2f 0%, #2a2a40 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
         }
 
         .header {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             padding: 1rem 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 2px solid #ffd700;
         }
 
         .nav {
@@ -37,9 +36,9 @@
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: bold;
-            background: linear-gradient(135deg, #ffd700, #ffa500);
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
@@ -51,27 +50,27 @@
         }
 
         .nav-btn {
-            padding: 0.8rem 1.5rem;
+            padding: 0.8rem 2rem;
             border: none;
-            border-radius: 25px;
-            font-size: 1rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid transparent;
         }
 
         .nav-btn.active {
-            background: linear-gradient(135deg, #ffd700, #ffa500);
-            color: #1e1e2f;
-            border: none;
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            color: #1a1a2e;
+            border-color: #ffd700;
         }
 
         .nav-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
         }
 
         .container {
@@ -81,8 +80,8 @@
         }
 
         /* Sections */
-        .packs-section {
-            display: block;
+        .packs-section, .collection-section {
+            transition: opacity 0.3s ease;
         }
 
         .collection-section {
@@ -112,14 +111,14 @@
             transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid transparent;
         }
 
         .series-btn.active {
-            background: linear-gradient(135deg, #ffd700, #ffa500);
-            color: #1e1e2f;
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            color: #1a1a2e;
             transform: scale(1.05);
-            border: none;
+            border-color: white;
         }
 
         .series-btn:hover {
@@ -137,8 +136,8 @@
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            gap: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 2rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
         .stat-item {
@@ -146,21 +145,22 @@
         }
 
         .stat-value {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
             color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
 
         .stat-label {
             color: white;
-            font-size: 0.9rem;
-            opacity: 0.8;
+            font-size: 1rem;
+            opacity: 0.9;
         }
 
         /* Packs Grid */
         .packs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -173,14 +173,25 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid transparent;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .pack-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b, #ffd700);
         }
 
         .pack-card:hover {
             transform: translateY(-10px) scale(1.02);
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-color: #ffd700;
+            box-shadow: 0 20px 30px rgba(255, 215, 0, 0.2);
         }
 
         .pack-card.disabled {
@@ -190,46 +201,45 @@
         }
 
         .pack-image {
-            width: 100%;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             object-fit: contain;
             margin-bottom: 1rem;
-            border-radius: 15px;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
         }
 
         .pack-name {
             font-size: 1.5rem;
             font-weight: bold;
-            margin-bottom: 0.5rem;
             color: white;
+            margin-bottom: 0.5rem;
         }
 
         .pack-price {
             color: #ffd700;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
         }
 
         .pack-count {
             position: absolute;
             top: 1rem;
             right: 1rem;
-            background: linear-gradient(135deg, #ffd700, #ffa500);
-            color: #1e1e2f;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.9rem;
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            color: #1a1a2e;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
             font-weight: bold;
         }
 
-        /* Pack Opening Animation */
+        /* Pack Opening */
         .pack-opening {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.98);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -244,71 +254,129 @@
             pointer-events: all;
         }
 
-        .opening-animation {
-            background: linear-gradient(135deg, #2a2a40, #1e1e2f);
-            padding: 3rem;
-            border-radius: 30px;
+        .opening-container {
             text-align: center;
             color: white;
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            max-width: 1200px;
-            width: 90%;
         }
 
-        .pack-opening.active .opening-animation {
-            transform: scale(1);
+        .opening-title {
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 2rem;
+            animation: pulse 1.5s infinite;
         }
 
-        .opening-cards {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1.5rem;
-            margin: 2rem 0;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
-        .opening-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1rem;
-            animation: cardReveal 0.5s ease forwards;
-            opacity: 0;
-            transform: translateY(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .card-reveal {
+            width: 400px;
+            height: 560px;
+            margin: 0 auto;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            animation: cardAppear 0.5s ease;
         }
 
-        @keyframes cardReveal {
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotateY(180deg);
+            }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(1) rotateY(0);
             }
         }
 
-        .opening-card img {
+        .card-reveal img {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: contain;
-            border-radius: 10px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .card-info {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .card-name {
+            color: #ffd700;
+            font-weight: bold;
             margin-bottom: 0.5rem;
         }
 
-        .close-opening {
-            padding: 1rem 3rem;
-            font-size: 1.2rem;
-            background: linear-gradient(135deg, #ffd700, #ffa500);
-            border: none;
+        .card-rarity-badge {
+            display: inline-block;
+            padding: 0.5rem 2rem;
             border-radius: 30px;
-            color: #1e1e2f;
             font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
             margin-top: 1rem;
         }
 
-        .close-opening:hover {
+        .card-rarity-badge.commune { background: #808080; }
+        .card-rarity-badge.rare { background: #4169e1; }
+        .card-rarity-badge.ultra-rare { background: linear-gradient(135deg, #ffd700, #ff6b6b); color: #1a1a2e; }
+
+        .opening-progress {
+            margin-top: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .progress-bar {
+            width: 400px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 1rem auto;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            transition: width 0.3s ease;
+        }
+
+        .next-card-btn {
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            border: none;
+            border-radius: 30px;
+            color: #1a1a2e;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .next-card-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .close-opening {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-opening:hover {
+            background: #ffd700;
+            color: #1a1a2e;
         }
 
         /* Collection Filters */
@@ -329,12 +397,12 @@
             transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid transparent;
         }
 
         .filter-btn.active {
-            background: linear-gradient(135deg, #ffd700, #ffa500);
-            color: #1e1e2f;
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            color: #1a1a2e;
         }
 
         .filter-btn:hover {
@@ -345,7 +413,7 @@
         /* Collection Grid */
         .collection-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 1.5rem;
         }
 
@@ -356,57 +424,52 @@
             padding: 1rem;
             text-align: center;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            border: 2px solid transparent;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .collection-card:hover {
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-5px);
             border-color: #ffd700;
         }
 
         .collection-card.ultra-rare {
-            border: 3px solid gold;
+            border-color: gold;
             box-shadow: 0 0 20px gold;
         }
 
         .collection-card.rare {
-            border: 2px solid silver;
-        }
-
-        .card-rarity {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            font-size: 0.8rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #ffd700, #ffa500);
-            color: #1e1e2f;
-            font-weight: bold;
-            z-index: 2;
+            border-color: silver;
         }
 
         .collection-card img {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: contain;
             border-radius: 10px;
-            margin-bottom: 0.5rem;
+        }
+
+        .card-rarity-tag {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            color: #1a1a2e;
         }
 
         .card-name {
-            font-weight: bold;
-            margin-bottom: 0.3rem;
             color: white;
-            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
         }
 
         .card-series {
             color: #ffd700;
             font-size: 0.9rem;
-            margin-bottom: 0.5rem;
         }
 
         .card-count {
@@ -415,8 +478,8 @@
             right: 0.5rem;
             background: #28a745;
             color: white;
-            padding: 0.2rem 0.5rem;
-            border-radius: 10px;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
             font-size: 0.8rem;
             font-weight: bold;
         }
@@ -425,10 +488,10 @@
 <body>
     <div class="header">
         <div class="nav">
-            <div class="logo" id="logoBtn">Pokémon TCGPocket</div>
+            <div class="logo" id="logoBtn">✨ Pokémon TCGPocket ✨</div>
             <div class="nav-buttons">
-                <button class="nav-btn active" id="packsBtn">Boosters</button>
-                <button class="nav-btn" id="collectionBtn">Ma Collection</button>
+                <button class="nav-btn active" id="packsBtn">🎴 Boosters</button>
+                <button class="nav-btn" id="collectionBtn">📚 Ma Collection</button>
             </div>
         </div>
     </div>
@@ -436,14 +499,16 @@
     <!-- Section Packs -->
     <div class="container packs-section" id="packsSection">
         <div class="series-selector" id="seriesSelector">
-            <button class="series-btn active" data-series="all">Toutes les séries</button>
-            <button class="series-btn" data-series="151">151</button>
-            <button class="series-btn" data-series="ecarlate">Écarlate et Violet</button>
-            <button class="series-btn" data-series="evolving">Évolutions célestes</button>
-            <button class="series-btn" data-series="transendants">Héros transendants</button>
-            <button class="series-btn" data-series="gx">GX Ultra</button>
-            <button class="series-btn" data-series="epee">Épée et Bouclier</button>
-            <button class="series-btn" data-series="soleil">Soleil et Lune</button>
+            <button class="series-btn active" data-series="all">🌟 Toutes les séries</button>
+            <button class="series-btn" data-series="151">⚡ 151</button>
+            <button class="series-btn" data-series="ecarlate">🌿 Écarlate et Violet</button>
+            <button class="series-btn" data-series="evolving">🌈 Évolutions célestes</button>
+            <button class="series-btn" data-series="transendants">🐉 Héros transendants</button>
+            <button class="series-btn" data-series="gx">💫 GX Ultra</button>
+            <button class="series-btn" data-series="epee">⚔️ Épée et Bouclier</button>
+            <button class="series-btn" data-series="soleil">☀️ Soleil et Lune</button>
+            <button class="series-btn" data-series="xy">🔷 XY</button>
+            <button class="series-btn" data-series="blackwhite">⚫ Noir & Blanc</button>
         </div>
 
         <div class="stats-bar">
@@ -467,13 +532,13 @@
     <!-- Section Collection -->
     <div class="container collection-section" id="collectionSection">
         <div class="collection-filters" id="collectionFilters">
-            <button class="filter-btn active" data-filter="all">Toutes</button>
-            <button class="filter-btn" data-filter="commune">Communes</button>
-            <button class="filter-btn" data-filter="rare">Rares</button>
-            <button class="filter-btn" data-filter="ultra-rare">Ultra Rares</button>
-            <button class="filter-btn" data-filter="151">Série 151</button>
-            <button class="filter-btn" data-filter="ecarlate">Écarlate et Violet</button>
-            <button class="filter-btn" data-filter="evolving">Évolutions célestes</button>
+            <button class="filter-btn active" data-filter="all">📋 Toutes</button>
+            <button class="filter-btn" data-filter="commune">📦 Communes</button>
+            <button class="filter-btn" data-filter="rare">✨ Rares</button>
+            <button class="filter-btn" data-filter="ultra-rare">🌟 Ultra Rares</button>
+            <button class="filter-btn" data-filter="151">⚡ 151</button>
+            <button class="filter-btn" data-filter="ecarlate">🌿 Écarlate/Violet</button>
+            <button class="filter-btn" data-filter="evolving">🌈 Évolutions</button>
         </div>
 
         <div class="collection-grid" id="collectionGrid"></div>
@@ -481,299 +546,105 @@
 
     <!-- Animation d'ouverture -->
     <div class="pack-opening" id="packOpening">
-        <div class="opening-animation">
-            <h2 style="color: #ffd700;">Ouverture du booster...</h2>
-            <div class="opening-cards" id="openingCards"></div>
-            <button class="close-opening" id="closeOpening">Fermer</button>
+        <button class="close-opening" id="closeOpening">✕ Fermer</button>
+        <div class="opening-container" id="openingContainer">
+            <div class="opening-title" id="openingTitle">Préparez-vous à ouvrir le booster...</div>
+            <div class="card-reveal" id="cardReveal">
+                <img id="currentCardImage" src="" alt="Carte">
+            </div>
+            <div class="card-info">
+                <div class="card-name" id="currentCardName"></div>
+                <div class="card-rarity-badge" id="currentCardRarity"></div>
+            </div>
+            <div class="opening-progress">
+                <div id="progressText">Carte 1/5</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+                </div>
+            </div>
+            <button class="next-card-btn" id="nextCardBtn">Carte suivante ➔</button>
         </div>
     </div>
 
     <script>
-        // Base de données des cartes
+        // ==================== BASE DE DONNÉES COMPLÈTE ====================
         const cardDatabase = {
             '151': [
-                { id: 1, name: 'Bulbizarre', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/1.png', set: 'Base Set' },
-                { id: 2, name: 'Salamèche', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/4.png', set: 'Base Set' },
-                { id: 3, name: 'Carapuce', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/7.png', set: 'Base Set' },
-                { id: 4, name: 'Pikachu', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/58.png', set: 'Base Set' },
-                { id: 5, name: 'Mewtwo', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/base1/10.png', set: 'Base Set' },
-                { id: 6, name: 'Dracaufeu', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/base1/4_hires.png', set: 'Base Set' }
-            ],
-            'ecarlate': [
-                { id: 101, name: 'Poussacha', rarity: 'commune', image: 'https://images.pokemontcg.io/sv1/1.png', set: 'Scarlet & Violet' },
-                { id: 102, name: 'Chochodile', rarity: 'commune', image: 'https://images.pokemontcg.io/sv1/4.png', set: 'Scarlet & Violet' },
-                { id: 103, name: 'Coiffeton', rarity: 'commune', image: 'https://images.pokemontcg.io/sv1/7.png', set: 'Scarlet & Violet' },
-                { id: 104, name: 'Miraidon', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sv1/81.png', set: 'Scarlet & Violet' }
-            ],
-            'evolving': [
-                { id: 201, name: 'Évoli', rarity: 'commune', image: 'https://images.pokemontcg.io/sm5/89.png', set: 'Ultra Prism' },
-                { id: 202, name: 'Pyroli', rarity: 'rare', image: 'https://images.pokemontcg.io/sm5/22.png', set: 'Ultra Prism' },
-                { id: 203, name: 'Aquali', rarity: 'rare', image: 'https://images.pokemontcg.io/sm5/30.png', set: 'Ultra Prism' },
-                { id: 204, name: 'Voltali', rarity: 'rare', image: 'https://images.pokemontcg.io/sm5/38.png', set: 'Ultra Prism' }
-            ],
-            'transendants': [
-                { id: 301, name: 'Dracofeu', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm9/4.png', set: 'Team Up' },
-                { id: 302, name: 'Lugia', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm8/78.png', set: 'Lost Thunder' },
-                { id: 303, name: 'Rayquaza', rarity: 'rare', image: 'https://images.pokemontcg.io/sm7/106.png', set: 'Celestial Storm' }
-            ],
-            'gx': [
-                { id: 401, name: 'Pikachu GX', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm1/27.png', set: 'Sun & Moon' },
-                { id: 402, name: 'Dracaufeu GX', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm3/3.png', set: 'Burning Shadows' }
-            ],
-            'epee': [
-                { id: 501, name: 'Ouistempo', rarity: 'commune', image: 'https://images.pokemontcg.io/swsh1/1.png', set: 'Sword & Shield' },
-                { id: 502, name: 'Zacian V', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/swsh1/138.png', set: 'Sword & Shield' }
-            ],
-            'soleil': [
-                { id: 601, name: 'Brindibou', rarity: 'commune', image: 'https://images.pokemontcg.io/sm1/1.png', set: 'Sun & Moon' },
-                { id: 602, name: 'Solgaleo GX', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/sm1/89.png', set: 'Sun & Moon' }
-            ]
-        };
-
-        // Variables globales
-        let userCollection = [];
-        let availablePacks = 10;
-        let currentSeries = 'all';
-        let currentFilter = 'all';
-
-        // Charger la collection
-        function loadCollection() {
-            const saved = localStorage.getItem('pokemonCollection');
-            if (saved) {
-                userCollection = JSON.parse(saved);
-            }
-            updateStats();
-        }
-
-        // Sauvegarder la collection
-        function saveCollection() {
-            localStorage.setItem('pokemonCollection', JSON.stringify(userCollection));
-            updateStats();
-        }
-
-        // Mettre à jour les stats
-        function updateStats() {
-            document.getElementById('packCount').textContent = availablePacks;
-            document.getElementById('totalCards').textContent = userCollection.length;
-            
-            const uniqueCards = new Set(userCollection.map(card => 
-                card.series + '-' + card.originalId
-            )).size;
-            document.getElementById('uniqueCards').textContent = uniqueCards;
-        }
-
-        // Générer les packs
-        function renderPacks() {
-            const packsGrid = document.getElementById('packsGrid');
-            packsGrid.innerHTML = '';
-            
-            const seriesToShow = currentSeries === 'all' ? Object.keys(cardDatabase) : [currentSeries];
-            
-            const seriesNames = {
-                '151': '151', 'ecarlate': 'Écarlate et Violet', 'evolving': 'Évolutions célestes',
-                'transendants': 'Héros transendants', 'gx': 'GX Ultra', 'epee': 'Épée et Bouclier', 'soleil': 'Soleil et Lune'
-            };
-
-            seriesToShow.forEach(series => {
-                for (let i = 0; i < 3; i++) {
-                    const pack = document.createElement('div');
-                    pack.className = `pack-card ${availablePacks <= 0 ? 'disabled' : ''}`;
-                    pack.setAttribute('data-series', series);
-                    
-                    pack.innerHTML = `
-                        <img src="https://images.pokemontcg.io/base1/logo.png" class="pack-image" onerror="this.src='https://via.placeholder.com/200x200?text=Pack'">
-                        <div class="pack-name">Booster ${seriesNames[series]}</div>
-                        <div class="pack-price">5 cartes</div>
-                        <div class="pack-count">Pack ${i + 1}/3</div>
-                    `;
-                    
-                    pack.onclick = function() {
-                        const series = this.getAttribute('data-series');
-                        openPack(series);
-                    };
-                    
-                    packsGrid.appendChild(pack);
-                }
-            });
-        }
-
-        // Ouvrir un pack
-        function openPack(series) {
-            if (availablePacks <= 0) {
-                alert('Plus de boosters disponibles !');
-                return;
-            }
-
-            availablePacks--;
-            
-            const cards = cardDatabase[series];
-            const openedCards = [];
-            
-            for (let i = 0; i < 5; i++) {
-                const randomIndex = Math.floor(Math.random() * cards.length);
-                const card = {...cards[randomIndex]};
-                card.originalId = card.id;
-                card.id = card.id + Date.now() + i;
-                card.series = series;
-                openedCards.push(card);
-                userCollection.push(card);
-            }
-
-            // Afficher l'animation
-            const opening = document.getElementById('packOpening');
-            const cardsContainer = document.getElementById('openingCards');
-            cardsContainer.innerHTML = '';
-            
-            openedCards.forEach((card, index) => {
-                const cardEl = document.createElement('div');
-                cardEl.className = 'opening-card';
-                cardEl.style.animationDelay = `${index * 0.1}s`;
-                cardEl.innerHTML = `
-                    <img src="${card.image}" onerror="this.src='https://via.placeholder.com/200x280?text=${card.name}'">
-                    <div class="card-name">${card.name}</div>
-                    <div class="card-rarity">${card.rarity}</div>
-                `;
-                cardsContainer.appendChild(cardEl);
-            });
-            
-            opening.classList.add('active');
-            
-            saveCollection();
-            renderPacks();
-            updateStats();
-            
-            if (document.getElementById('collectionSection').classList.contains('active')) {
-                renderCollection();
-            }
-        }
-
-        // Afficher la collection
-        function renderCollection() {
-            const grid = document.getElementById('collectionGrid');
-            grid.innerHTML = '';
-            
-            let filtered = [...userCollection];
-            
-            if (currentFilter !== 'all') {
-                if (['commune', 'rare', 'ultra-rare'].includes(currentFilter)) {
-                    filtered = filtered.filter(c => c.rarity === currentFilter);
-                } else {
-                    filtered = filtered.filter(c => c.series === currentFilter);
-                }
-            }
-            
-            // Compter les doublons
-            const counts = {};
-            filtered.forEach(card => {
-                const key = card.series + '-' + card.originalId;
-                counts[key] = (counts[key] || 0) + 1;
-            });
-            
-            // Cartes uniques
-            const seen = new Set();
-            const unique = [];
-            
-            filtered.forEach(card => {
-                const key = card.series + '-' + card.originalId;
-                if (!seen.has(key)) {
-                    seen.add(key);
-                    unique.push({...card, count: counts[key]});
-                }
-            });
-            
-            unique.sort((a, b) => a.name.localeCompare(b.name));
-            
-            unique.forEach(card => {
-                const el = document.createElement('div');
-                el.className = `collection-card ${card.rarity}`;
-                el.innerHTML = `
-                    <div class="card-rarity">${card.rarity}</div>
-                    <img src="${card.image}" onerror="this.src='https://via.placeholder.com/200x280?text=${card.name}'">
-                    <div class="card-name">${card.name}</div>
-                    <div class="card-series">${card.series}</div>
-                    <div class="card-count">x${card.count}</div>
-                `;
-                grid.appendChild(el);
-            });
-            
-            if (unique.length === 0) {
-                grid.innerHTML = '<div class="loading">Aucune carte dans cette catégorie</div>';
-            }
-        }
-
-        // Initialisation des événements
-        document.addEventListener('DOMContentLoaded', function() {
-            // Navigation
-            document.getElementById('logoBtn').onclick = function() {
-                switchSection('packs');
-            };
-            
-            document.getElementById('packsBtn').onclick = function() {
-                switchSection('packs');
-            };
-            
-            document.getElementById('collectionBtn').onclick = function() {
-                switchSection('collection');
-            };
-            
-            // Filtres des séries
-            document.querySelectorAll('#seriesSelector .series-btn').forEach(btn => {
-                btn.onclick = function() {
-                    document.querySelectorAll('#seriesSelector .series-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentSeries = this.getAttribute('data-series');
-                    renderPacks();
-                };
-            });
-            
-            // Filtres de collection
-            document.querySelectorAll('#collectionFilters .filter-btn').forEach(btn => {
-                btn.onclick = function() {
-                    document.querySelectorAll('#collectionFilters .filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.getAttribute('data-filter');
-                    renderCollection();
-                };
-            });
-            
-            // Fermer l'animation
-            document.getElementById('closeOpening').onclick = function() {
-                document.getElementById('packOpening').classList.remove('active');
-            };
-            
-            // Charger les données
-            loadCollection();
-            renderPacks();
-            
-            // Recharge des packs (toutes les heures)
-            setInterval(() => {
-                availablePacks = Math.min(availablePacks + 1, 10);
-                updateStats();
-                renderPacks();
-            }, 3600000);
-        });
-
-        // Changer de section
-        function switchSection(section) {
-            const packsSection = document.getElementById('packsSection');
-            const collectionSection = document.getElementById('collectionSection');
-            const packsBtn = document.getElementById('packsBtn');
-            const collectionBtn = document.getElementById('collectionBtn');
-            
-            if (section === 'packs') {
-                packsSection.style.display = 'block';
-                collectionSection.classList.remove('active');
-                packsBtn.classList.add('active');
-                collectionBtn.classList.remove('active');
-                renderPacks();
-            } else {
-                packsSection.style.display = 'none';
-                collectionSection.classList.add('active');
-                packsBtn.classList.remove('active');
-                collectionBtn.classList.add('active');
-                renderCollection();
-            }
-        }
-    </script>
-</body>
-</html>
+                // 151 - Tous les Pokémon de Kanto
+                { id: 1, name: 'Bulbizarre', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/1.png', number: '001', set: 'Base Set' },
+                { id: 2, name: 'Herbizarre', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/30.png', number: '002', set: 'Base Set' },
+                { id: 3, name: 'Florizarre', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/15.png', number: '003', set: 'Base Set' },
+                { id: 4, name: 'Salamèche', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/4.png', number: '004', set: 'Base Set' },
+                { id: 5, name: 'Reptincel', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/5.png', number: '005', set: 'Base Set' },
+                { id: 6, name: 'Dracaufeu', rarity: 'ultra-rare', image: 'https://images.pokemontcg.io/base1/4_hires.png', number: '006', set: 'Base Set' },
+                { id: 7, name: 'Carapuce', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/7.png', number: '007', set: 'Base Set' },
+                { id: 8, name: 'Carabaffe', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/8.png', number: '008', set: 'Base Set' },
+                { id: 9, name: 'Tortank', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/2.png', number: '009', set: 'Base Set' },
+                { id: 10, name: 'Chenipan', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/45.png', number: '010', set: 'Base Set' },
+                { id: 11, name: 'Chrysacier', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/46.png', number: '011', set: 'Base Set' },
+                { id: 12, name: 'Papilusion', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/47.png', number: '012', set: 'Base Set' },
+                { id: 13, name: 'Aspicot', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/69.png', number: '013', set: 'Base Set' },
+                { id: 14, name: 'Coconfort', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/70.png', number: '014', set: 'Base Set' },
+                { id: 15, name: 'Dardargnan', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/71.png', number: '015', set: 'Base Set' },
+                { id: 16, name: 'Roucool', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/63.png', number: '016', set: 'Base Set' },
+                { id: 17, name: 'Roucoups', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/64.png', number: '017', set: 'Base Set' },
+                { id: 18, name: 'Roucarnage', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/65.png', number: '018', set: 'Base Set' },
+                { id: 19, name: 'Rattata', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/61.png', number: '019', set: 'Base Set' },
+                { id: 20, name: 'Rattatac', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/62.png', number: '020', set: 'Base Set' },
+                { id: 21, name: 'Piafabec', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/55.png', number: '021', set: 'Base Set' },
+                { id: 22, name: 'Rapasdepic', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/56.png', number: '022', set: 'Base Set' },
+                { id: 23, name: 'Abo', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/49.png', number: '023', set: 'Base Set' },
+                { id: 24, name: 'Arbok', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/50.png', number: '024', set: 'Base Set' },
+                { id: 25, name: 'Pikachu', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/58.png', number: '025', set: 'Base Set' },
+                { id: 26, name: 'Raichu', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/59.png', number: '026', set: 'Base Set' },
+                { id: 27, name: 'Sabelette', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/60.png', number: '027', set: 'Base Set' },
+                { id: 28, name: 'Sablaireau', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/61.png', number: '028', set: 'Base Set' },
+                { id: 29, name: 'Nidoran♀', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/54.png', number: '029', set: 'Base Set' },
+                { id: 30, name: 'Nidorina', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/55.png', number: '030', set: 'Base Set' },
+                { id: 31, name: 'Nidoqueen', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/56.png', number: '031', set: 'Base Set' },
+                { id: 32, name: 'Nidoran♂', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/57.png', number: '032', set: 'Base Set' },
+                { id: 33, name: 'Nidorino', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/58.png', number: '033', set: 'Base Set' },
+                { id: 34, name: 'Nidoking', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/59.png', number: '034', set: 'Base Set' },
+                { id: 35, name: 'Mélofée', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/60.png', number: '035', set: 'Base Set' },
+                { id: 36, name: 'Mélodelfe', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/61.png', number: '036', set: 'Base Set' },
+                { id: 37, name: 'Goupix', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/62.png', number: '037', set: 'Base Set' },
+                { id: 38, name: 'Feunard', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/63.png', number: '038', set: 'Base Set' },
+                { id: 39, name: 'Rondoudou', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/64.png', number: '039', set: 'Base Set' },
+                { id: 40, name: 'Grodoudou', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/65.png', number: '040', set: 'Base Set' },
+                { id: 41, name: 'Nosferapti', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/66.png', number: '041', set: 'Base Set' },
+                { id: 42, name: 'Nosferalto', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/67.png', number: '042', set: 'Base Set' },
+                { id: 43, name: 'Mystherbe', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/68.png', number: '043', set: 'Base Set' },
+                { id: 44, name: 'Ortide', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/69.png', number: '044', set: 'Base Set' },
+                { id: 45, name: 'Rafflesia', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/70.png', number: '045', set: 'Base Set' },
+                { id: 46, name: 'Paras', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/71.png', number: '046', set: 'Base Set' },
+                { id: 47, name: 'Parasect', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/72.png', number: '047', set: 'Base Set' },
+                { id: 48, name: 'Mimitoss', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/73.png', number: '048', set: 'Base Set' },
+                { id: 49, name: 'Aéromite', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/74.png', number: '049', set: 'Base Set' },
+                { id: 50, name: 'Taupiqueur', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/75.png', number: '050', set: 'Base Set' },
+                { id: 51, name: 'Triopikeur', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/76.png', number: '051', set: 'Base Set' },
+                { id: 52, name: 'Miaouss', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/53.png', number: '052', set: 'Base Set' },
+                { id: 53, name: 'Persian', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/54.png', number: '053', set: 'Base Set' },
+                { id: 54, name: 'Psykokwak', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/55.png', number: '054', set: 'Base Set' },
+                { id: 55, name: 'Akwakwak', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/56.png', number: '055', set: 'Base Set' },
+                { id: 56, name: 'Férosinge', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/57.png', number: '056', set: 'Base Set' },
+                { id: 57, name: 'Colossinge', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/58.png', number: '057', set: 'Base Set' },
+                { id: 58, name: 'Caninos', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/59.png', number: '058', set: 'Base Set' },
+                { id: 59, name: 'Arcanin', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/60.png', number: '059', set: 'Base Set' },
+                { id: 60, name: 'Ptitard', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/61.png', number: '060', set: 'Base Set' },
+                { id: 61, name: 'Têtarte', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/62.png', number: '061', set: 'Base Set' },
+                { id: 62, name: 'Tartard', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/63.png', number: '062', set: 'Base Set' },
+                { id: 63, name: 'Abra', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/64.png', number: '063', set: 'Base Set' },
+                { id: 64, name: 'Kadabra', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/65.png', number: '064', set: 'Base Set' },
+                { id: 65, name: 'Alakazam', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/66.png', number: '065', set: 'Base Set' },
+                { id: 66, name: 'Machoc', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/67.png', number: '066', set: 'Base Set' },
+                { id: 67, name: 'Machopeur', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/68.png', number: '067', set: 'Base Set' },
+                { id: 68, name: 'Mackogneur', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/69.png', number: '068', set: 'Base Set' },
+                { id: 69, name: 'Chétiflor', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/70.png', number: '069', set: 'Base Set' },
+                { id: 70, name: 'Boustiflor', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/71.png', number: '070', set: 'Base Set' },
+                { id: 71, name: 'Empiflor', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/72.png', number: '071', set: 'Base Set' },
+                { id: 72, name: 'Tentacool', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/73.png', number: '072', set: 'Base Set' },
+                { id: 73, name: 'Tentacruel', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/74.png', number: '073', set: 'Base Set' },
+                { id: 74, name: 'Racaillou', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/75.png', number: '074', set: 'Base Set' },
+                { id: 75, name: 'Gravalanch', rarity: 'commune', image: 'https://images.pokemontcg.io/base1/76.png', number: '075', set: 'Base Set' },
+                { id: 76, name: 'Grolem', rarity: 'rare', image: 'https://images.pokemontcg.io/base1/77.png', number: '076', set: 'Base Set' },
+                { id: 77, name: 'Ponyta', rarity: 'commune', image: 'https://images.p
